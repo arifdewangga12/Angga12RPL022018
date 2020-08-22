@@ -36,21 +36,23 @@
         android:layout_marginEnd="20dp"
         android:textColorHint="#797979"
         app:backgroundTint="#797979" />
+<com.google.android.material.textfield.TextInputLayout
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    app:passwordToggleEnabled="true">
 
     <EditText
         android:id="@+id/txtpasswordLogin"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:hint="Password"
-        android:textStyle="bold"
         android:inputType="textPassword"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="20dp"
-        app:backgroundTint="#797979"
-        android:textColorHint="#797979" />
+        android:textColorHint="#797979"
+        android:textStyle="bold"
+        app:backgroundTint="#797979" />
+</com.google.android.material.textfield.TextInputLayout>
 
-    <Button
+ <Button
 
         android:id="@+id/btnlogin"
         android:layout_width="300dp"
