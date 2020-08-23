@@ -127,6 +127,7 @@
             android:layout_marginEnd="20dp"
             android:background="@drawable/ic_background_rounded"
             android:text="Register"
+            android:textAllCaps="false"
             android:textColor="#fff"
             android:textStyle="bold" />
 
