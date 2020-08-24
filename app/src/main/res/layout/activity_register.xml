@@ -52,19 +52,6 @@
             app:backgroundTint="#797979" />
 
         <EditText
-            android:id="@+id/txtconfirmpassword"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="20dp"
-            android:hint="Confirm Password"
-            android:inputType="textPassword"
-            android:textColorHint="#797979"
-            android:textStyle="bold"
-            app:backgroundTint="#797979" />
-
-        <EditText
             android:id="@+id/txtemailReg"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
