@@ -25,8 +25,8 @@
         android:layout_marginTop="40dp"/>
     <EditText
         android:layout_marginBottom="12dp"
-        android:hint="Username"
-        android:id="@+id/txtusernameLogin"
+        android:hint="Email"
+        android:id="@+id/txtemailLog"
         android:textStyle="bold"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
@@ -35,14 +35,15 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:textColorHint="#797979"
-        app:backgroundTint="#797979" />
+        app:backgroundTint="#797979"
+        tools:ignore="InvalidId" />
 <com.google.android.material.textfield.TextInputLayout
     android:layout_width="300dp"
     android:layout_height="wrap_content"
     app:passwordToggleEnabled="true">
 
     <EditText
-        android:id="@+id/txtpasswordLogin"
+        android:id="@+id/txtpasswordLog"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:hint="Password"
