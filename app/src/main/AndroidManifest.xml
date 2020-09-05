@@ -13,6 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".Admin.list_data_sepedaActivity" />
+        <activity android:name=".Admin.list_data_customerActivity" />
         <activity android:name=".AdminActivity" />
         <activity android:name=".DashboardActivity" />
         <activity android:name=".SplashActivity">
