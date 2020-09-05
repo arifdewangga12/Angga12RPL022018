@@ -1,5 +1,8 @@
 package com.angga.angga12rpl022018;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,113 +12,109 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-import com.google.gson.JsonArray;
+import com.androidnetworking.AndroidNetworking;
+import com.androidnetworking.common.Priority;
+import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.JSONObjectRequestListener;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
-import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
-    Button btnLogin;
-    EditText password,email;
-    TextView Login;
-    private static String URL_LOGIN = "http://192.168.6.229/rentalsepeda/login.php";
-
+    private TextView tvLogin;
+    private EditText txtemailLog, txtpasswordLog;
+    private boolean isFormFilled = false;
+    private Button btnLogin;
+    private String roleuser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        Login = (TextView) findViewById(R.id.tvLogin);
-        Login.setOnClickListener(new View.OnClickListener() {
+
+        txtemailLog = findViewById(R.id.txtemailLog);
+        txtpasswordLog = findViewById(R.id.txtpasswordLog);
+        tvLogin = findViewById(R.id.tvLogin);
+        tvLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this,RegisterActivity.class);
-                startActivity(intent);
+                Intent i = new Intent(LoginActivity.this,RegisterActivity.class);
+                startActivity(i);
             }
         });
-        password = findViewById(R.id.txtpasswordLog);
-        email = findViewById(R.id.txtemailLog);
-        btnLogin = findViewById(R.id.btnlogin);
 
+        btnLogin = findViewById(R.id.btnlogin);
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String mEmail = email.getText().toString().trim();
-                String mPass = password.getText().toString().trim();
+                isFormFilled = true;
+                final String email = txtemailLog.getText().toString();
+                final String password = txtpasswordLog.getText().toString();
 
-                if (!mEmail.isEmpty() || !mPass.isEmpty()){
-                    Login(mEmail,mPass);
-                }else {
-                    email.setError("Tolong Masukkan Email Yang Valid");
-                    password.setError("Tolong Masukkan Password Yang Benar");
+                if (email.isEmpty() || password.isEmpty()) {
+                    Toast.makeText(LoginActivity.this, "Harap isi kolom login !", Toast.LENGTH_SHORT).show();
+                    isFormFilled = false;
+                }
+//                isFormFilled = false;
+                if (isFormFilled) {
+                    HashMap<String, String> body = new HashMap<>();
+                    body.put("email", email);
+                    body.put("password", password);
+                    AndroidNetworking.post(config.BASE_URL+"login.php")
+                            .addBodyParameter(body)
+                            .setOkHttpClient(((initial) getApplication()).getOkHttpClient())
+                            .setPriority(Priority.MEDIUM)
+                            .build()
+                            .getAsJSONObject(new JSONObjectRequestListener() {
+                                @Override
+                                public void onResponse(JSONObject response) {
+                                    Log.d("e", "respon : " + response);
+                                    String status = response.optString(config.RESPONSE_STATUS_FIELD);
+                                    String message = response.optString(config.RESPONSE_MESSAGE_FIELD);
+//                                    String login = response.optString("login");
+                                    if (message.equalsIgnoreCase(config.RESPONSE_STATUS_VALUE_SUCCESS)) {
+                                        JSONArray loginArray = response.optJSONArray("login");
+                                        if (loginArray == null) return;
+                                        for (int i = 0; i <loginArray.length(); i++) {
+                                            final JSONObject aLogin = loginArray.optJSONObject(i);
+                                            roleuser = aLogin.optString("roleuser");
+                                        }
+                                        Log.d("AGG", "respon : " + roleuser);
+                                        if (roleuser.equalsIgnoreCase("admin")) {
+                                            Intent intent = new Intent(LoginActivity.this, AdminActivity.class);
+                                            startActivity(intent);
+                                            Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
+                                            finish();
+                                            finishAffinity();
+                                        }else {
+                                            Intent intent = new Intent(LoginActivity.this, DashboardActivity.class);
+                                            startActivity(intent);
+                                            Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
+                                            finish();
+                                            finishAffinity();
+                                        }
+                                    }
+                                    else {
+                                        Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
+                                    }
+
+                                }
+
+                                @Override
+                                public void onError(ANError anError) {
+
+                                    Log.d("e", "onError: " + anError.getErrorBody());
+                                    Log.d("e", "onError: " + anError.getLocalizedMessage());
+                                    Log.d("e", "onError: " + anError.getErrorDetail());
+                                    Log.d("e", "onError: " + anError.getResponse());
+                                    Log.d("e", "onError: " + anError.getErrorCode());
+                                }
+                            });
                 }
             }
         });
-    }
 
-    private void Login(final String email, final String password) {
-        btnLogin.setVisibility(View.GONE);
-
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_LOGIN,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            Log.i("tagconvertstr", "["+response+"]");
-                            JSONObject jsonObject = new JSONObject(response);
-                            String success = jsonObject.getString("success");
-                            JSONArray jsonArray = jsonObject.getJSONArray("login");
-
-                            if (success.equals("1")) {
-                                for (int i = 0; i < jsonArray.length(); i++){
-
-
-                                    Toast.makeText(LoginActivity.this, "Yey , Login Success! ", Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(LoginActivity.this,DashboardActivity.class);
-                                    startActivity(intent);
-                                }
-                            }
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            Log.e("cm", "onResponse: " + e );
-                            btnLogin.setVisibility(View.VISIBLE);
-                            Toast.makeText(LoginActivity.this, "hmm , Login Error" +e.toString(), Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    btnLogin.setVisibility(View.VISIBLE);
-
-                    Toast.makeText(LoginActivity.this, "hmm , Login Error" +error.toString(), Toast.LENGTH_SHORT).show();
-            }
-        })
-        {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("email",email);
-                params.put("password",password);
-                return params;
-            }
-        };
-
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(stringRequest);
     }
 }

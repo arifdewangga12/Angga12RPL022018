@@ -1,6 +1,8 @@
 package com.angga.angga12rpl022018;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,13 +13,10 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
+import com.androidnetworking.AndroidNetworking;
+import com.androidnetworking.common.Priority;
+import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.JSONObjectRequestListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,98 +25,138 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
-    Button btnRegister;
-    TextView Register;
-    EditText username,password,email,noktp,notlp,alamat;
-    private static String URL_REGISTER = "http://192.168.6.229/rentalsepeda/register.php";
+        private TextView tvRegister;
+        private EditText txtusernameReg, txtpasswordReg, txtemailReg, txtnotlpReg, txtnoktpReg, txtalamatReg;
+        private Button btnregister;
+        private boolean mIsFormFilled = false;
+        private SharedPreferences preferences;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_register);
+            binding();
 
-        Register = findViewById(R.id.tvRegister);
-        Register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(RegisterActivity.this,LoginActivity.class);
-                startActivity(intent);
-            }
-        });
-        username = findViewById(R.id.txtusernameReg);
-        password = findViewById(R.id.txtpasswordReg);
-        email = findViewById(R.id.txtemailReg);
-        noktp = findViewById(R.id.txtnoktpReg);
-        notlp = findViewById(R.id.txtnotlpReg);
-        alamat = findViewById(R.id.txtalamatReg);
-        btnRegister = findViewById(R.id.btnregister);
-
-        btnRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Register();
-            }
-        });
-
-    }
-    private void Register(){
-        btnRegister.setVisibility(View.GONE);
-
-        final String username = this.username.getText().toString().trim();
-        final String password = this.password.getText().toString().trim();
-        final String email = this.email.getText().toString().trim();
-        final String noktp = this.noktp.getText().toString().trim();
-        final String notlp = this.notlp.getText().toString().trim();
-        final String alamat = this.alamat.getText().toString().trim();
-
-
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_REGISTER, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    Log.i("tagconvertstr", "["+response+"]");
-                    JSONObject jsonObject = new JSONObject(response);
-
-                    String success = jsonObject.getString("success");
-
-
-                    if (success.equals("1")){
-                        Toast.makeText(RegisterActivity.this, "Yey , Register succes!", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(RegisterActivity.this,DashboardActivity.class);
-                        startActivity(intent);
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    Log.e("cm", "onResponse: " + e );
-                    Toast.makeText(RegisterActivity.this, "Hmm , Register Error!" + e.toString(), Toast.LENGTH_SHORT).show();
-                    btnRegister.setVisibility(View.VISIBLE);
+            tvRegister.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(RegisterActivity.this,LoginActivity.class);
+                    startActivity(i);
                 }
-            }
-        },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError Error) {
-                        Log.d("CM", "onErrorResponse: " + Error);
-                        Toast.makeText(RegisterActivity.this, "Register error!" + Error.toString(), Toast.LENGTH_SHORT).show();
-                        btnRegister.setVisibility(View.VISIBLE);
+            });
+            btnregister.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mIsFormFilled = true;
+                    final String username = txtusernameReg.getText().toString();
+                    final String email = txtemailReg.getText().toString().trim();
+                    final String password = txtpasswordReg.getText().toString();
+                    final String notlp = txtnotlpReg.getText().toString();
+                    final String noktp = txtnoktpReg.getText().toString();
+                    final String alamat = txtalamatReg.getText().toString();
+
+
+
+                    if (username.isEmpty() || notlp.isEmpty() || alamat.isEmpty() || noktp.isEmpty() || password.isEmpty() || email.isEmpty()) {
+                        Toast.makeText(RegisterActivity.this, "Harap lengkapi kolom register !", Toast.LENGTH_SHORT).show();
+                        mIsFormFilled = false;
                     }
-                })
-        {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("username",username);
-                params.put("password",password);
-                params.put("email",email);
-                params.put("noktp",noktp);
-                params.put("notlp",notlp);
-                params.put("alamat",alamat);
-                return params;
 
-            }
-        };
+//                if(tilReferal.getVisibility() == View.VISIBLE) {
+//                    if(referal.isEmpty()) {
+//                        Toast.makeText(RegisterActivity.this, "Harap lengkapi isian yang tersedia", Toast.LENGTH_SHORT).show();
+//                        mIsFormFilled = false;
+//                    }
+//                }
 
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(stringRequest);
-    }
+//                if(password.length() < 8) {
+//                    Toast.makeText(RegisterActivity.this, "Panjang password minimal 8 karakter", Toast.LENGTH_SHORT).show();
+//                    mIsFormFilled = false;
+//                }
+//                if(!password.equalsIgnoreCase(passwordConfirm)) {
+//                    Toast.makeText(RegisterActivity.this, "Harap samakan isian password dan konfirmasi password", Toast.LENGTH_SHORT).show();
+//                    mIsFormFilled = false;
+//                }
+
+//                if(tilReferal.getVisibility() == View.VISIBLE && referal.isEmpty()) {
+//                    Toast.makeText(RegisterActivity.this, "Harap isikan nama marketing yang mereferensikan", Toast.LENGTH_SHORT).show();
+//                    mIsFormFilled = false;
+//                }
+
+                    if (mIsFormFilled) {
+                        HashMap<String, String> body = new HashMap<>();
+//                        body.put("a", "register");
+//                    try {
+//                        final MCrypt mcrypt = new MCrypt();
+//                        String encrypted = MCrypt.bytesToHex(mcrypt.encrypt(password));
+//                        body.put("passwordEnc", encrypted);
+//                    }
+//                    catch (Exception e) {
+//                        Log.d("RBA", "Exception : " + e.getMessage());
+//                        body.put("password", password);
+//                    }
+
+
+                        body.put("email", email);
+                        body.put("password", password);
+                        body.put("username", username);
+                        body.put("notlp", notlp);
+                        body.put("alamat", alamat);
+                        body.put("noktp", noktp);
+
+                        AndroidNetworking.post(config.BASE_URL+"register.php")
+                                .addBodyParameter(body)
+                                .setPriority(Priority.MEDIUM)
+                                .setOkHttpClient(((initial) getApplication()).getOkHttpClient())
+                                .build()
+                                .getAsJSONObject(new JSONObjectRequestListener() {
+                                    @Override
+                                    public void onResponse(JSONObject response) {
+                                        try {
+
+//                                            String status = response.getString(config.RESPONSE_STATUS_FIELD);
+                                            String message = response.getString(config.RESPONSE_MESSAGE_FIELD);
+
+                                            Toast.makeText(RegisterActivity.this, message, Toast.LENGTH_LONG).show();
+                                            Log.d("f", "response: "+message);
+                                            if (message.equalsIgnoreCase(config.RESPONSE_STATUS_VALUE_SUCCESS)) {
+
+                                                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                                                startActivity(intent);
+                                                finishAffinity();
+                                            }
+                                        }
+                                        catch (JSONException e) {
+                                            e.printStackTrace();
+                                            Log.d("b", "JSONException: " + e.getMessage());
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onError(ANError anError) {
+//                                        mProgress.dismiss();
+                                        Toast.makeText(RegisterActivity.this, config.TOAST_AN_EROR, Toast.LENGTH_SHORT).show();
+                                        Log.d("ab", "onError: " + anError.getErrorBody());
+                                        Log.d("ab", "onError: " + anError.getLocalizedMessage());
+                                        Log.d("ab", "onError: " + anError.getErrorDetail());
+                                        Log.d("ab", "onError: " + anError.getResponse());
+                                        Log.d("ab", "onError: " + anError.getErrorCode());
+                                    }
+                                });
+                    }
+
+                }
+            });
+        }
+
+        private void binding() {
+            tvRegister = findViewById(R.id.tvRegister);
+            txtusernameReg = findViewById(R.id.txtusernameReg);
+            txtpasswordReg = findViewById(R.id.txtpasswordReg);
+            txtnotlpReg = findViewById(R.id.txtnotlpReg);
+            txtnoktpReg = findViewById(R.id.txtnoktpReg);
+            txtalamatReg = findViewById(R.id.txtalamatReg);
+            txtemailReg= findViewById(R.id.txtemailReg);
+            btnregister = findViewById(R.id.btnregister);
+        }
 }
