@@ -2,7 +2,6 @@ package com.angga.angga12rpl022018;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +15,7 @@ import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
+import com.angga.angga12rpl022018.Helper.config;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.angga.angga12rpl022018">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -13,8 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".Admin.list_data_customerActivity"></activity>
         <activity android:name=".Admin.list_data_sepedaActivity" />
-        <activity android:name=".Admin.list_data_customerActivity" />
         <activity android:name=".AdminActivity" />
         <activity android:name=".DashboardActivity" />
         <activity android:name=".SplashActivity">

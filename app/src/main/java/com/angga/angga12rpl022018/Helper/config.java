@@ -1,10 +1,11 @@
-package com.angga.angga12rpl022018;
+package com.angga.angga12rpl022018.Helper;
 
 import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
@@ -15,10 +16,13 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.provider.Settings;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+
+import com.angga.angga12rpl022018.LoginActivity;
 
 import java.util.Random;
 
@@ -26,6 +30,7 @@ public class config {
     //public static final String BASE_URL = " http://98102f27.ngrok.io/gma5/";
     //public static final String BASE_URL = "http://192.168.43.107/gma5/";
     public static final String BASE_URL = "http://192.168.6.229/rentalsepeda/";
+    public static final String TOAST_AN_ERROR = "ERROR GA ADA USER :)";
 
     private static final String API = "api/";
     public static final String BASE_URL_API = BASE_URL + API;
@@ -193,38 +198,38 @@ public class config {
         return false;
     }
 
-//    public static void forceLogout(Context context) {
-//        //Getting out shared preferences
-//        SharedPreferences preferences = context.getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
-//        //Getting editor
-//        SharedPreferences.Editor editor = preferences.edit();
-//        editor.putBoolean(Config.LOGIN_STATUS_SHARED_PREF, false);
-//        editor.putString(Config.LOGIN_ID_SHARED_PREF, "");
-//        editor.putString(Config.LOGIN_ADDRESS_SHARED_PREF, "");
-//        editor.putString(Config.LOGIN_CITY_SHARED_PREF, "");
-//        editor.putString(Config.LOGIN_ZIP_CODE_SHARED_PREF, "");
-//        editor.putString(Config.LOGIN_NAME_SHARED_PREF, "");
-//        editor.putString(Config.LOGIN_GROUP_NAME_SHARED_PREF, "");
-//        editor.putString(Config.LOGIN_GROUP_ID_SHARED_PREF, "");
-//        editor.putString(Config.LOGIN_TOKEN_SHARED_PREF, "");
-//        editor.putString(Config.LOGIN_EMAIL_SHARED_PREF, "");
-//        editor.putString(Config.LOGIN_PHONE_SHARED_PREF, "");
-//        editor.putString(Config.LOGIN_AVATAR_SHARED_PREF, "");
-//        editor.putString(Config.LOGIN_EXTRA_01_SHARED_PREF, "");
-//        editor.putString(Config.LOGIN_EXTRA_02_SHARED_PREF, "");
-//        editor.putString(Config.LOGIN_EXTRA_03_SHARED_PREF, "");
-//        editor.putString(Config.LOGIN_EXTRA_04_SHARED_PREF, "");
-//        editor.putString(Config.LOGIN_EXTRA_05_SHARED_PREF, "");
-//
-//        //Saving the sharedpreferences
-//        editor.commit();
-//
-//        Toast.makeText(context, "Anda telah logout dari aplikasi.\nUntuk mengakses beberapa fitur, Anda harus login terlebih dahulu", Toast.LENGTH_LONG).show();
-//        //Starting login activity
-//        Intent intent = new Intent(context.getApplicationContext(), LoginActivity.class);
-//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-//        context.startActivity(intent);
-//    }
+    public static void forceLogout(Context context) {
+        //Getting out shared preferences
+        SharedPreferences preferences = context.getSharedPreferences(config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        //Getting editor
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean(config.LOGIN_STATUS_SHARED_PREF, false);
+        editor.putString(config.LOGIN_ID_SHARED_PREF, "");
+        editor.putString(config.LOGIN_ADDRESS_SHARED_PREF, "");
+        editor.putString(config.LOGIN_CITY_SHARED_PREF, "");
+        editor.putString(config.LOGIN_ZIP_CODE_SHARED_PREF, "");
+        editor.putString(config.LOGIN_NAME_SHARED_PREF, "");
+        editor.putString(config.LOGIN_GROUP_NAME_SHARED_PREF, "");
+        editor.putString(config.LOGIN_GROUP_ID_SHARED_PREF, "");
+        editor.putString(config.LOGIN_TOKEN_SHARED_PREF, "");
+        editor.putString(config.LOGIN_EMAIL_SHARED_PREF, "");
+        editor.putString(config.LOGIN_PHONE_SHARED_PREF, "");
+        editor.putString(config.LOGIN_AVATAR_SHARED_PREF, "");
+        editor.putString(config.LOGIN_EXTRA_01_SHARED_PREF, "");
+        editor.putString(config.LOGIN_EXTRA_02_SHARED_PREF, "");
+        editor.putString(config.LOGIN_EXTRA_03_SHARED_PREF, "");
+        editor.putString(config.LOGIN_EXTRA_04_SHARED_PREF, "");
+        editor.putString(config.LOGIN_EXTRA_05_SHARED_PREF, "");
+
+        //Saving the sharedpreferences
+        editor.commit();
+
+        Toast.makeText(context, "Anda telah logout dari aplikasi.\nUntuk mengakses beberapa fitur, Anda harus login terlebih dahulu", Toast.LENGTH_LONG).show();
+        //Starting login activity
+        Intent intent = new Intent(context.getApplicationContext(), LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
+    }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     public static boolean checkPermission(final Context context, final String permissionType) {
@@ -598,6 +603,8 @@ public class config {
 
         return (formattedDate + "" + year);
     }
+
+
 
 //    public static int getIndex(ArrayList<ItemOption> list, Spinner spinner, String searchId){
 //        for (int i=0;i<spinner.getCount();i++){

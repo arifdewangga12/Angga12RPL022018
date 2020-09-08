@@ -1,5 +1,6 @@
 package com.angga.angga12rpl022018.Adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,13 +19,18 @@ import java.util.List;
 
 public class AdminUserAdapter extends RecyclerView.Adapter<AdminUserAdapter.ItemViewHolder> {
     private Context context;
-    private List<UserAdminModel> mList;
+    private List<UserAdminModel> mList;  private String mLoginToken = "";
+    private boolean mBusy = false;
+    private AdminActivity mAdminUserActivity;
 
-    public AdminUserAdapter(Context context, List<UserAdminModel> mList, AdminActivity adminUserActivity) {
+
+    public AdminUserAdapter(Context context, List<UserAdminModel> mList, String loginToken, Activity AdminUserActivity) {
         this.context = context;
         this.mList = mList;
-    }
+        this.mLoginToken = loginToken;
+        this.mAdminUserActivity = (AdminActivity) AdminUserActivity;
 
+    }
 
     @NonNull
     @Override
@@ -60,8 +66,8 @@ public class AdminUserAdapter extends RecyclerView.Adapter<AdminUserAdapter.Item
         TextView tv_username, tv_notlp;
         public ItemViewHolder(@NonNull View itemView) {
             super(itemView);
-            tv_username = itemView.findViewById(R.id.tvNama);
-            tv_notlp = itemView.findViewById(R.id.tvPhone);
+            tv_username = itemView.findViewById(R.id.tvUsername);
+            tv_notlp = itemView.findViewById(R.id.tvNotlp);
         }
     }
 }

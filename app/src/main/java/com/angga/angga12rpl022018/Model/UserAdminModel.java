@@ -69,7 +69,7 @@ public class UserAdminModel implements Parcelable {
         return RoleUser;
     }
 
-    public void RoleUser(String u_GROUP_ROLE) {
+    public void setRoleUser(String RoleUser) {
         RoleUser = RoleUser;
     }
 
@@ -113,4 +113,5 @@ public class UserAdminModel implements Parcelable {
         dest.writeString(NoTlp);
         dest.writeString(Alamat);
     }
+
 }

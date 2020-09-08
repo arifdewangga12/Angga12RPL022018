@@ -3,7 +3,8 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#fff">
+    android:background="#fff"
+    >
 
     <LinearLayout
         android:id="@+id/item_unit"
@@ -26,10 +27,10 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/tvNama"
+                    android:id="@+id/tvUsername"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="ID #123"
+                    android:text="NAMA CUSTOMER"
                     android:textSize="11sp"
                     android:textStyle="bold"
                     android:textColor="@color/colorPrimary"
@@ -46,7 +47,7 @@
                 <TextView
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
-                    android:text="Phone"
+                    android:text="No Hp"
                     android:gravity="left"
                     android:textSize="10sp"
                     android:textColor="#000" />
@@ -60,10 +61,10 @@
                     android:textColor="#000" />
 
                 <TextView
-                    android:id="@+id/tvPhone"
+                    android:id="@+id/tvNotlp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0813244"
+                    android:text="0812 3456 6778"
                     android:paddingLeft="7dp"
                     android:gravity="center"
                     android:textStyle="bold"
@@ -80,7 +81,7 @@
                 <TextView
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
-                    android:text="Role"
+                    android:text="User Role"
                     android:gravity="left"
                     android:textSize="10sp"
                     android:textColor="#000" />
@@ -99,7 +100,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:paddingLeft="7dp"
-                    android:text="20.098"
+                    android:text="admin"
                     android:textColor="#000"
                     android:textSize="10sp"
                     android:textStyle="bold" />

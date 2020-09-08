@@ -8,11 +8,12 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.angga.angga12rpl022018.Adapter.AdminUserAdapter;
+import com.angga.angga12rpl022018.Admin.list_data_customerActivity;
 import com.angga.angga12rpl022018.Admin.list_data_sepedaActivity;
 
 public class AdminActivity extends AppCompatActivity {
 
-   private CardView daftarsepeda;
+   private CardView daftarsepeda, daftarcustomer;
 
 
     @Override
@@ -25,6 +26,14 @@ public class AdminActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(AdminActivity.this, list_data_sepedaActivity.class);
+                startActivity(i);
+            }
+        });
+        daftarcustomer = findViewById(R.id.daftarcustomer);
+        daftarcustomer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(AdminActivity.this, list_data_customerActivity.class);
                 startActivity(i);
             }
         });
