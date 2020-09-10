@@ -5,16 +5,17 @@
     android:layout_height="wrap_content"
     android:background="#fff"
     >
-
     <LinearLayout
         android:id="@+id/item_unit"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/bg_rectangle"
         android:orientation="horizontal"
         android:layout_marginLeft="3sp"
         android:layout_marginRight="3sp"
         android:layout_marginTop="3sp"
         android:layout_marginBottom="1sp">
+
 
         <LinearLayout
             android:padding="8sp"
@@ -30,12 +31,19 @@
                     android:id="@+id/tvUsername"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="NAMA CUSTOMER"
+                    android:text="Nama Customer"
                     android:textSize="11sp"
                     android:textStyle="bold"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="@color/colorPrimaryDark"
                     android:layout_marginBottom="5dp"
                     android:layout_centerVertical="true"/>
+
+                <ImageView
+                    android:id="@+id/ivDelete"
+                    android:src="@drawable/ic_close_black_24dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
 
             </RelativeLayout>
 
@@ -47,7 +55,7 @@
                 <TextView
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
-                    android:text="No Hp"
+                    android:text="Phone"
                     android:gravity="left"
                     android:textSize="10sp"
                     android:textColor="#000" />
@@ -64,7 +72,7 @@
                     android:id="@+id/tvNotlp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0812 3456 6778"
+                    android:text="0813244"
                     android:paddingLeft="7dp"
                     android:gravity="center"
                     android:textStyle="bold"
@@ -72,7 +80,6 @@
                     android:textSize="10sp" />
 
             </LinearLayout>
-
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -81,7 +88,7 @@
                 <TextView
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
-                    android:text="User Role"
+                    android:text="Status"
                     android:gravity="left"
                     android:textSize="10sp"
                     android:textColor="#000" />
@@ -95,17 +102,18 @@
                     android:textColor="#000" />
 
                 <TextView
-                    android:id="@+id/tvRole"
+                    android:id="@+id/tvRoleUser"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
+                    android:layout_height="wrap_content"
+                    android:text="customer"
                     android:paddingLeft="7dp"
-                    android:text="admin"
+                    android:gravity="center"
+                    android:textStyle="bold"
                     android:textColor="#000"
-                    android:textSize="10sp"
-                    android:textStyle="bold" />
+                    android:textSize="10sp" />
 
             </LinearLayout>
+
         </LinearLayout>
     </LinearLayout>
 

@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -22,6 +23,7 @@ import com.angga.angga12rpl022018.Helper.AppHelper;
 import com.angga.angga12rpl022018.Model.UserAdminModel;
 import com.angga.angga12rpl022018.R;
 import com.angga.angga12rpl022018.Helper.config;
+import com.angga.angga12rpl022018.RS;
 import com.angga.angga12rpl022018.initial;
 
 import org.json.JSONArray;
@@ -31,7 +33,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class list_data_customerActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
-    private ImageView ivAdd;
+    private ImageView ivAdd, ivBack;
 
     private SwipeRefreshLayout swipeRefresh;
     private RecyclerView rv;
@@ -41,8 +43,6 @@ public class list_data_customerActivity extends AppCompatActivity implements Swi
 
     private String mLoginToken = "";
     private String mUserId = "";
-    private Object View;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,12 +51,12 @@ public class list_data_customerActivity extends AppCompatActivity implements Swi
         mLoginToken = sp.getString(config.LOGIN_TOKEN_SHARED_PREF,"");
         mUserId = sp.getString(config.LOGIN_ID_SHARED_PREF, "");
 
-//        if(mLoginToken.equalsIgnoreCase("") || mUserId.equalsIgnoreCase("")) {
-//            finish();
-//            config.forceLogout(list_data_customerActivity.this);
-//        }
+        if(mLoginToken.equalsIgnoreCase("") || mUserId.equalsIgnoreCase("")) {
+            finish();
+            config.forceLogout(list_data_customerActivity.this);
+        }
 
-        setContentView(R.layout.activity_customer_admin);
+        setContentView(R.layout.activity_list_data_customer);
         binding();
         swipeRefresh.setOnRefreshListener(this);
         swipeRefresh.post(new Runnable() {
@@ -74,9 +74,18 @@ public class list_data_customerActivity extends AppCompatActivity implements Swi
         rv.setLayoutManager(new LinearLayoutManager(this));
 
     }
-
     private void binding() {
-        ivAdd = findViewById(R.id.ivAddUser);
+        ivBack = findViewById(R.id.ivBack);
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            private void doNothing() {
+
+            }
+
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         rv = findViewById(R.id.rvUserManage);
         swipeRefresh = findViewById(R.id.swipeRefresh);
@@ -87,24 +96,21 @@ public class list_data_customerActivity extends AppCompatActivity implements Swi
     public void onRefresh() {
         getUserList();
     }
-
-
     public void show(){
-        mAdapter = new AdminUserAdapter (list_data_customerActivity.this, mList, mLoginToken,list_data_customerActivity.this);
+        mAdapter = new AdminUserAdapter (list_data_customerActivity.this, mList, mLoginToken, list_data_customerActivity.this);
 
         rv.setAdapter(mAdapter);
     }
 
-
     public void getUserList() {
         swipeRefresh.setRefreshing(true);
         HashMap<String, String> body = new HashMap<>();
-        body.put("act", "getdatauser");
+        body.put("act", "get_konsumen");
         body.put("loginToken", mLoginToken);
-        AndroidNetworking.post(config.BASE_URL_API + "getdatauser.php")
-//                .addBodyParameter(body)
-                .setPriority(Priority.HIGH)
-                .setOkHttpClient(((initial) getApplication()).getOkHttpClient())
+        AndroidNetworking.post(config.BASE_URL + "getdatauser.php")
+                .addBodyParameter(body)
+                .setPriority(Priority.MEDIUM)
+                .setOkHttpClient(((RS) getApplication()).getOkHttpClient())
                 .build()
                 .getAsJSONObject(new JSONObjectRequestListener() {
                     @Override
@@ -123,8 +129,7 @@ public class list_data_customerActivity extends AppCompatActivity implements Swi
                             JSONArray payload = response.optJSONArray(config.RESPONSE_PAYLOAD_FIELD);
 
                             if (payload == null) {
-                                Toast.makeText(list_data_customerActivity.this, "Tidak ada user / customer", Toast.LENGTH_SHORT).show();
-                                return;
+                                Toast.makeText(list_data_customerActivity.this,"Tidak ada user",Toast.LENGTH_SHORT).show();                                return;
                             }
 
                             for (int i = 0; i < payload.length(); i++) {
@@ -144,7 +149,7 @@ public class list_data_customerActivity extends AppCompatActivity implements Swi
                     @Override
                     public void onError(ANError anError) {
                         swipeRefresh.setRefreshing(false);
-                        Toast.makeText(list_data_customerActivity.this, config.TOAST_AN_ERROR, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(list_data_customerActivity.this, config.TOAST_AN_EROR, Toast.LENGTH_SHORT).show();
                         Log.d("A", "onError: " + anError.getErrorBody());
                         Log.d("A", "onError: " + anError.getLocalizedMessage());
                         Log.d("A", "onError: " + anError.getErrorDetail());
@@ -153,4 +158,5 @@ public class list_data_customerActivity extends AppCompatActivity implements Swi
                     }
                 });
 
-    }}
+    }
+}

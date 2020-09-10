@@ -1,36 +1,53 @@
 package com.angga.angga12rpl022018.Adapter;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.androidnetworking.AndroidNetworking;
+import com.androidnetworking.common.Priority;
+import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.JSONObjectRequestListener;
+import com.angga.angga12rpl022018.Admin.list_data_customerActivity;
 import com.angga.angga12rpl022018.AdminActivity;
+import com.angga.angga12rpl022018.Helper.config;
 import com.angga.angga12rpl022018.Model.UserAdminModel;
 import com.angga.angga12rpl022018.R;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class AdminUserAdapter extends RecyclerView.Adapter<AdminUserAdapter.ItemViewHolder> {
     private Context context;
-    private List<UserAdminModel> mList;  private String mLoginToken = "";
+    private List<UserAdminModel> mList;
+    private String mLoginToken = "";
     private boolean mBusy = false;
-    private AdminActivity mAdminUserActivity;
-
+    private ProgressDialog mProgressDialog;
+    private list_data_customerActivity mAdminActivity;
 
     public AdminUserAdapter(Context context, List<UserAdminModel> mList, String loginToken, Activity AdminUserActivity) {
         this.context = context;
         this.mList = mList;
         this.mLoginToken = loginToken;
-        this.mAdminUserActivity = (AdminActivity) AdminUserActivity;
+        this.mAdminActivity = (list_data_customerActivity) mAdminActivity;
 
     }
+
 
     @NonNull
     @Override
@@ -43,8 +60,7 @@ public class AdminUserAdapter extends RecyclerView.Adapter<AdminUserAdapter.Item
     @Override
     public void onBindViewHolder(@NonNull AdminUserAdapter.ItemViewHolder itemViewHolder, int i) {
         final UserAdminModel Amodel = mList.get(i);
-        itemViewHolder.tv_username.setText(Amodel.getUsername());
-        itemViewHolder.tv_notlp.setText(Amodel.getNoTlp());
+        itemViewHolder.bind(Amodel);
     }
 
     @Override
@@ -63,11 +79,124 @@ public class AdminUserAdapter extends RecyclerView.Adapter<AdminUserAdapter.Item
 
 
     public class ItemViewHolder extends RecyclerView.ViewHolder {
-        TextView tv_username, tv_notlp;
+        private TextView tv_username, tv_notlp, tv_RoleUser;
+        private ImageView divDelete;
+
         public ItemViewHolder(@NonNull View itemView) {
             super(itemView);
+            divDelete = itemView.findViewById(R.id.ivDelete);
             tv_username = itemView.findViewById(R.id.tvUsername);
             tv_notlp = itemView.findViewById(R.id.tvNotlp);
+            tv_RoleUser = itemView.findViewById(R.id.tvRoleUser);
+        }
+
+        private void bind(final UserAdminModel Amodel) {
+            tv_username.setText(Amodel.getUsername());
+            tv_notlp.setText(Amodel.getUsername());
+
+            divDelete.setOnClickListener(new View.OnClickListener() {
+                private void doNothing() {
+
+                }
+
+                @Override
+                public void onClick(View view) {
+                    if (mBusy) {
+                        Toast.makeText(context, "Harap tunggu", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+                    alertDialogBuilder.setMessage("Hapus data user ?");
+                    alertDialogBuilder.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                        private void doNothing() {
+
+                        }
+
+                        public void onClick(DialogInterface arg0, int arg1) {
+                            deleteData(String.valueOf(Amodel.getId()));
+                        }
+                    });
+                    alertDialogBuilder.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+                        private void doNothing() {
+
+                        }
+
+                        @Override
+                        public void onClick(DialogInterface arg0, int arg1) {
+                            arg0.dismiss();
+                        }
+                    });
+
+                    //Showing the alert dialog
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    alertDialog.show();
+                }
+            });
+        }
+
+        private void deleteData(String id) {
+            if (mBusy) {
+                Toast.makeText(context, "Harap tunggu", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            mProgressDialog = new ProgressDialog(context);
+            mProgressDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            mProgressDialog.setMessage("Proses ...");
+            mProgressDialog.setCancelable(true);
+            mProgressDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Batal", new DialogInterface.OnClickListener() {
+                private void doNothing() {
+
+                }
+
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            if (!mProgressDialog.isShowing()) mProgressDialog.show();
+
+            Log.d("A", "act:delete_konsumen\n" +
+                    "loginToken:" + mLoginToken + "\n" +
+                    "uId:" + id);
+
+            AndroidNetworking.post(config.BASE_URL_API + "auth.php")
+                    .addBodyParameter("act", "delete_konsumen")
+                    .addBodyParameter("loginToken", mLoginToken)
+                    .addBodyParameter("uId", id)
+                    .setPriority(Priority.HIGH)
+                    .build()
+                    .getAsJSONObject(new JSONObjectRequestListener() {
+                        @Override
+                        public void onResponse(JSONObject jsonResponse) {
+                            mBusy = false;
+                            if (mProgressDialog != null) mProgressDialog.dismiss();
+
+                            String message = jsonResponse.optString(config.RESPONSE_MESSAGE_FIELD);
+                            String status = jsonResponse.optString(config.RESPONSE_STATUS_FIELD);
+
+//                            if (status != null && status.equalsIgnoreCase(Config.RESPONSE_STATUS_VALUE_SUCCESS)) {
+//                                mAdminUserActivity.getUserList();
+//                            } else {
+//                                Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+//                            }
+                        }
+
+                        @Override
+                        public void onError(ANError anError) {
+                            mBusy = false;
+                            if (mProgressDialog != null) mProgressDialog.dismiss();
+
+                            Toast.makeText(context, config.TOAST_AN_EROR, Toast.LENGTH_SHORT).show();
+                            Log.d("RBA", "onError: " + anError.getErrorBody());
+                            Log.d("RBA", "onError: " + anError.getLocalizedMessage());
+                            Log.d("RBA", "onError: " + anError.getErrorDetail());
+                            Log.d("RBA", "onError: " + anError.getResponse());
+                            Log.d("RBA", "onError: " + anError.getErrorCode());
+                        }
+                    });
+
         }
     }
 }
