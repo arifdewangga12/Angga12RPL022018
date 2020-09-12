@@ -3,25 +3,27 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#fff"
-    >
+    android:background="@drawable/ic_background_card"
+    android:layout_marginLeft="3sp"
+    android:layout_marginRight="4sp"
+    android:layout_marginTop="4sp"
+    android:layout_marginBottom="5sp"
+    android:outlineAmbientShadowColor="@color/cardview_shadow_end_color">
     <LinearLayout
         android:id="@+id/item_unit"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/bg_rectangle"
         android:orientation="horizontal"
-        android:layout_marginLeft="3sp"
-        android:layout_marginRight="3sp"
-        android:layout_marginTop="3sp"
-        android:layout_marginBottom="1sp">
+        >
 
 
         <LinearLayout
             android:padding="8sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+           >
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -34,13 +36,14 @@
                     android:text="Nama Customer"
                     android:textSize="11sp"
                     android:textStyle="bold"
+                    android:paddingLeft="5dp"
                     android:textColor="@color/colorPrimaryDark"
                     android:layout_marginBottom="5dp"
                     android:layout_centerVertical="true"/>
 
                 <ImageView
                     android:id="@+id/ivDelete"
-                    android:src="@drawable/ic_close_black_24dp"
+                    android:src="@drawable/ic_baseline_delete_24"
                     android:layout_alignParentEnd="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -50,7 +53,8 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingLeft="5dp">
 
                 <TextView
                     android:layout_width="80dp"
@@ -83,7 +87,8 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingLeft="5dp">
 
                 <TextView
                     android:layout_width="80dp"

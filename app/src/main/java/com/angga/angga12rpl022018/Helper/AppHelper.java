@@ -10,13 +10,13 @@ import org.json.JSONObject;
 public class AppHelper {
     public static UserAdminModel mapUserAdminModel(JSONObject rowData) {
         UserAdminModel item = new UserAdminModel();
-        item.setId(rowData.optString("Id"));
-        item.setUsername(rowData.optString("Username"));
-        item.setAlamat(rowData.optString("Alamat"));
-        item.setEmail(rowData.optString("Email"));
-        item.setNoKtp(rowData.optString("NoKtp"));
-        item.setNoTlp(rowData.optString("NoTlp"));
-        item.setRoleUser(rowData.optString("RoleUser"));
+        item.setId(rowData.optString("id"));
+        item.setUsername(rowData.optString("username"));
+        item.setAlamat(rowData.optString("alamat"));
+        item.setEmail(rowData.optString("email"));
+        item.setNoKtp(rowData.optString("noktp"));
+        item.setNoTlp(rowData.optString("notlp"));
+        item.setRoleUser(rowData.optString("roleuser"));
 
 
         return item;

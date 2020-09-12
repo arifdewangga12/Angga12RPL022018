@@ -31,7 +31,6 @@
             android:textColor="@color/colorPrimary"
             android:textStyle="bold"
             android:textSize="20dp"
-            app:fontFamily="@font/baloo"
             app:layout_constraintEnd_toStartOf="@+id/imageView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar" />
@@ -92,7 +91,7 @@
                         android:layout_marginTop="20dp"
                         android:text="Daftar Sepeda"
                         android:textSize="16dp"
-                        app:fontFamily="@font/aclonica" />
+                        />
 
                     <ImageView
                         android:id="@+id/daftarsepeda"
@@ -125,7 +124,7 @@
                         android:layout_marginTop="20dp"
                         android:text="Jenis Sepeda"
                         android:textSize="16dp"
-                        app:fontFamily="@font/aclonica" />
+                        />
 
                     <ImageView
                         android:id="@+id/jenissepeda"
@@ -169,7 +168,7 @@
                         android:layout_marginTop="20dp"
                         android:text="Harga Sewa"
                         android:textSize="16dp"
-                        app:fontFamily="@font/aclonica" />
+                        />
 
                     <ImageView
                         android:id="@+id/hargasewa"
@@ -201,7 +200,7 @@
                         android:layout_marginTop="20dp"
                         android:text="Cara Pesan"
                         android:textSize="16dp"
-                        app:fontFamily="@font/aclonica" />
+                        />
 
                     <ImageView
                         android:id="@+id/carapesan"

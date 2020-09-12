@@ -4,7 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class UserAdminModel implements Parcelable {
-    private String Id;
+    private int Id;
     private String Username;
     private String Email;
     private String RoleUser;
@@ -13,7 +13,7 @@ public class UserAdminModel implements Parcelable {
     private String Alamat;
 
     public UserAdminModel(Parcel in) {
-        Id = in.readString();
+        Id = in.readInt();
         Username = in.readString();
         Email = in.readString();
         RoleUser = in.readString();
@@ -41,7 +41,7 @@ public class UserAdminModel implements Parcelable {
         }
     };
 
-    public String getId() {
+    public int getId() {
         return Id;
     }
 
@@ -105,7 +105,7 @@ public class UserAdminModel implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(Id);
+        dest.writeInt(Id);
         dest.writeString(Username);
         dest.writeString(Email);
         dest.writeString(RoleUser);

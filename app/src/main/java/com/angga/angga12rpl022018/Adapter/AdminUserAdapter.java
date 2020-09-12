@@ -40,11 +40,10 @@ public class AdminUserAdapter extends RecyclerView.Adapter<AdminUserAdapter.Item
     private ProgressDialog mProgressDialog;
     private list_data_customerActivity mAdminActivity;
 
-    public AdminUserAdapter(Context context, List<UserAdminModel> mList, String loginToken, Activity AdminUserActivity) {
+    public AdminUserAdapter(Context context, List<UserAdminModel> mList, Activity AdminUserActivity) {
         this.context = context;
         this.mList = mList;
-        this.mLoginToken = loginToken;
-        this.mAdminActivity = (list_data_customerActivity) mAdminActivity;
+        this.mAdminActivity = (list_data_customerActivity) AdminUserActivity;
 
     }
 
@@ -92,7 +91,8 @@ public class AdminUserAdapter extends RecyclerView.Adapter<AdminUserAdapter.Item
 
         private void bind(final UserAdminModel Amodel) {
             tv_username.setText(Amodel.getUsername());
-            tv_notlp.setText(Amodel.getUsername());
+            tv_notlp.setText(Amodel.getNoTlp());
+            tv_RoleUser.setText(Amodel.getRoleUser());
 
             divDelete.setOnClickListener(new View.OnClickListener() {
                 private void doNothing() {
