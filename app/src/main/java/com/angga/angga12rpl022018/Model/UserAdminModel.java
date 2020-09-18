@@ -4,7 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class UserAdminModel implements Parcelable {
-    private int Id;
+    private String Id;
     private String Username;
     private String Email;
     private String RoleUser;
@@ -12,8 +12,80 @@ public class UserAdminModel implements Parcelable {
     private String NoTlp;
     private String Alamat;
 
+    public UserAdminModel(String id, String username, String email, String roleUser, String noKtp, String noTlp, String alamat) {
+        Id = id;
+        Username = username;
+        Email = email;
+        RoleUser = roleUser;
+        NoKtp = noKtp;
+        NoTlp = noTlp;
+        Alamat = alamat;
+    }
+
+    public UserAdminModel() {
+
+    }
+
+    public String getId() {
+        return Id;
+    }
+
+    public void setId(String id) {
+        Id= id;
+    }
+
+    public String getUsername() {
+        return Username;
+    }
+
+    public void setUsername(String username) {
+        Username = username;
+    }
+
+    public String getEmail() {
+        return Email;
+    }
+
+    public void setEmail(String email) {
+        Email = email;
+    }
+
+    public String getRoleUser() {
+        return RoleUser;
+    }
+
+    public void setRoleUser(String roleUser) {
+        RoleUser = roleUser;
+    }
+
+    public String getNoTlp() {
+        return NoTlp;
+    }
+
+    public void setNoTlp(String noTlp) {
+        NoTlp = noTlp;
+    }
+
+    public String getNoKtp() {
+        return NoKtp;
+    }
+
+    public void setNoKtp(String noKtp) {
+        NoKtp = noKtp;
+    }
+
+    public String getAlamat() {
+        return Alamat;
+    }
+
+    public void setAlamat(String alamat) {
+        Alamat = alamat;
+    }
+
+
+
     public UserAdminModel(Parcel in) {
-        Id = in.readInt();
+        Id = in.readString();
         Username = in.readString();
         Email = in.readString();
         RoleUser = in.readString();
@@ -21,8 +93,6 @@ public class UserAdminModel implements Parcelable {
         NoTlp = in.readString();
         Alamat = in.readString();
     }
-
-    public UserAdminModel() {}
 
 
     public static Creator<UserAdminModel> getCREATOR() {
@@ -41,61 +111,7 @@ public class UserAdminModel implements Parcelable {
         }
     };
 
-    public int getId() {
-        return Id;
-    }
 
-    public void setId(String Id) {
-        Id= Id;
-    }
-
-    public String getUsername() {
-        return Username;
-    }
-
-    public void setUsername(String Username) {
-        Username = Username;
-    }
-
-    public String getEmail() {
-        return Email;
-    }
-
-    public void setEmail(String Email) {
-        Email = Email;
-    }
-
-    public String getRoleUser() {
-        return RoleUser;
-    }
-
-    public void setRoleUser(String RoleUser) {
-        RoleUser = RoleUser;
-    }
-
-    public String getNoTlp() {
-        return NoTlp;
-    }
-
-    public void setNoTlp(String NoTlp) {
-        NoTlp = NoTlp;
-    }
-
-    public String getNoKtp() {
-        return NoKtp;
-    }
-
-    public void setNoKtp(String NoKtp) {
-        NoKtp = NoKtp;
-    }
-
-    public String getAlamat() {
-        return Alamat;
-    }
-
-    public void setAlamat(String Alamat) {
-        Alamat = Alamat;
-    }
 
 
     @Override
@@ -105,7 +121,7 @@ public class UserAdminModel implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(Id);
+        dest.writeString(Id);
         dest.writeString(Username);
         dest.writeString(Email);
         dest.writeString(RoleUser);
@@ -113,5 +129,6 @@ public class UserAdminModel implements Parcelable {
         dest.writeString(NoTlp);
         dest.writeString(Alamat);
     }
+
 
 }

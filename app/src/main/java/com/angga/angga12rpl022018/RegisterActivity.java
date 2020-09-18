@@ -61,41 +61,9 @@ public class RegisterActivity extends AppCompatActivity {
                         mIsFormFilled = false;
                     }
 
-//                if(tilReferal.getVisibility() == View.VISIBLE) {
-//                    if(referal.isEmpty()) {
-//                        Toast.makeText(RegisterActivity.this, "Harap lengkapi isian yang tersedia", Toast.LENGTH_SHORT).show();
-//                        mIsFormFilled = false;
-//                    }
-//                }
-
-//                if(password.length() < 8) {
-//                    Toast.makeText(RegisterActivity.this, "Panjang password minimal 8 karakter", Toast.LENGTH_SHORT).show();
-//                    mIsFormFilled = false;
-//                }
-//                if(!password.equalsIgnoreCase(passwordConfirm)) {
-//                    Toast.makeText(RegisterActivity.this, "Harap samakan isian password dan konfirmasi password", Toast.LENGTH_SHORT).show();
-//                    mIsFormFilled = false;
-//                }
-
-//                if(tilReferal.getVisibility() == View.VISIBLE && referal.isEmpty()) {
-//                    Toast.makeText(RegisterActivity.this, "Harap isikan nama marketing yang mereferensikan", Toast.LENGTH_SHORT).show();
-//                    mIsFormFilled = false;
-//                }
 
                     if (mIsFormFilled) {
                         HashMap<String, String> body = new HashMap<>();
-//                        body.put("a", "register");
-//                    try {
-//                        final MCrypt mcrypt = new MCrypt();
-//                        String encrypted = MCrypt.bytesToHex(mcrypt.encrypt(password));
-//                        body.put("passwordEnc", encrypted);
-//                    }
-//                    catch (Exception e) {
-//                        Log.d("RBA", "Exception : " + e.getMessage());
-//                        body.put("password", password);
-//                    }
-
-
                         body.put("email", email);
                         body.put("password", password);
                         body.put("username", username);

@@ -5,8 +5,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -22,6 +24,7 @@ import com.angga.angga12rpl022018.Model.UserAdminModel;
 import com.angga.angga12rpl022018.R;
 import com.angga.angga12rpl022018.Helper.config;
 import com.angga.angga12rpl022018.initial;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,6 +38,7 @@ public class list_data_customerActivity extends AppCompatActivity implements Swi
 
     private SwipeRefreshLayout swipeRefresh;
     private RecyclerView rv;
+    private FloatingActionButton tambahuser;
 
     private ArrayList<UserAdminModel> mList = new ArrayList<>();
     private AdminUserAdapter mAdapter;
@@ -69,6 +73,13 @@ public class list_data_customerActivity extends AppCompatActivity implements Swi
             }
         });
 
+        tambahuser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(list_data_customerActivity.this,TambahUserActivity.class);
+                startActivity(i);
+            }
+        });
         LinearLayoutManager manager = new LinearLayoutManager(this);
         rv.setLayoutManager(manager);
         rv.setHasFixedSize(true);
@@ -77,17 +88,18 @@ public class list_data_customerActivity extends AppCompatActivity implements Swi
 
     }
     private void binding() {
-//        ivBack = findViewById(R.id.ivBack);
-//        ivBack.setOnClickListener(new View.OnClickListener() {
-//            private void doNothing() {
-//
-//            }
-//
-//            @Override
-//            public void onClick(View v) {
-//                finish();
-//            }
-//        });
+        tambahuser = findViewById(R.id.tambahuser);
+        ivBack = findViewById(R.id.ivBack);
+        ivBack.setOnClickListener(new View.OnClickListener() {
+          private void doNothing() {
+
+            }
+
+          @Override
+         public void onClick(View v) {
+              finish();
+           }
+       });
 
         rv = findViewById(R.id.rvUserManage);
         swipeRefresh = findViewById(R.id.swipeRefresh);
@@ -104,10 +116,7 @@ public class list_data_customerActivity extends AppCompatActivity implements Swi
 
     public void getUserList() {
         swipeRefresh.setRefreshing(true);
-//        HashMap<String, String> body = new HashMap<>();
-//        body.put("act", "get_konsumen");
         AndroidNetworking.get(config.BASE_URL + "getdatauser.php")
-//                .addBodyParameter(body)
                 .setPriority(Priority.LOW)
                 .setOkHttpClient(((initial) getApplication()).getOkHttpClient())
                 .build()

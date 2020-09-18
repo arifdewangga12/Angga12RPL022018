@@ -41,6 +41,7 @@ public class AdminUserAdapter extends RecyclerView.Adapter<AdminUserAdapter.Item
     private list_data_customerActivity mAdminActivity;
 
     public AdminUserAdapter(Context context, List<UserAdminModel> mList, Activity AdminUserActivity) {
+
         this.context = context;
         this.mList = mList;
         this.mAdminActivity = (list_data_customerActivity) AdminUserActivity;
@@ -78,20 +79,20 @@ public class AdminUserAdapter extends RecyclerView.Adapter<AdminUserAdapter.Item
 
 
     public class ItemViewHolder extends RecyclerView.ViewHolder {
-        private TextView tv_username, tv_notlp, tv_RoleUser;
+        private TextView tv_username, tv_email, tv_RoleUser;
         private ImageView divDelete;
 
         public ItemViewHolder(@NonNull View itemView) {
             super(itemView);
             divDelete = itemView.findViewById(R.id.ivDelete);
             tv_username = itemView.findViewById(R.id.tvUsername);
-            tv_notlp = itemView.findViewById(R.id.tvNotlp);
+            tv_email = itemView.findViewById(R.id.tvEmail);
             tv_RoleUser = itemView.findViewById(R.id.tvRoleUser);
         }
 
         private void bind(final UserAdminModel Amodel) {
             tv_username.setText(Amodel.getUsername());
-            tv_notlp.setText(Amodel.getNoTlp());
+            tv_email.setText(Amodel.getEmail());
             tv_RoleUser.setText(Amodel.getRoleUser());
 
             divDelete.setOnClickListener(new View.OnClickListener() {
@@ -161,10 +162,10 @@ public class AdminUserAdapter extends RecyclerView.Adapter<AdminUserAdapter.Item
                     "loginToken:" + mLoginToken + "\n" +
                     "uId:" + id);
 
-            AndroidNetworking.post(config.BASE_URL_API + "auth.php")
-                    .addBodyParameter("act", "delete_konsumen")
-                    .addBodyParameter("loginToken", mLoginToken)
-                    .addBodyParameter("uId", id)
+            AndroidNetworking.post(config.BASE_URL_API + "delete.php")
+//                    .addBodyParameter("act", "delete_konsumen")
+//                    .addBodyParameter("loginToken", mLoginToken)
+                    .addBodyParameter("id", id)
                     .setPriority(Priority.HIGH)
                     .build()
                     .getAsJSONObject(new JSONObjectRequestListener() {
@@ -176,11 +177,11 @@ public class AdminUserAdapter extends RecyclerView.Adapter<AdminUserAdapter.Item
                             String message = jsonResponse.optString(config.RESPONSE_MESSAGE_FIELD);
                             String status = jsonResponse.optString(config.RESPONSE_STATUS_FIELD);
 
-//                            if (status != null && status.equalsIgnoreCase(Config.RESPONSE_STATUS_VALUE_SUCCESS)) {
-//                                mAdminUserActivity.getUserList();
-//                            } else {
-//                                Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
-//                            }
+                            if (status != null && status.equalsIgnoreCase(config.RESPONSE_STATUS_VALUE_SUCCESS)) {
+                                mAdminActivity.getUserList();
+                            } else {
+                                Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+                            }
                         }
 
                         @Override
@@ -189,11 +190,11 @@ public class AdminUserAdapter extends RecyclerView.Adapter<AdminUserAdapter.Item
                             if (mProgressDialog != null) mProgressDialog.dismiss();
 
                             Toast.makeText(context, config.TOAST_AN_EROR, Toast.LENGTH_SHORT).show();
-                            Log.d("RBA", "onError: " + anError.getErrorBody());
-                            Log.d("RBA", "onError: " + anError.getLocalizedMessage());
-                            Log.d("RBA", "onError: " + anError.getErrorDetail());
-                            Log.d("RBA", "onError: " + anError.getResponse());
-                            Log.d("RBA", "onError: " + anError.getErrorCode());
+                            Log.d("A", "onError: " + anError.getErrorBody());
+                            Log.d("A", "onError: " + anError.getLocalizedMessage());
+                            Log.d("A", "onError: " + anError.getErrorDetail());
+                            Log.d("A", "onError: " + anError.getResponse());
+                            Log.d("A", "onError: " + anError.getErrorCode());
                         }
                     });
 
