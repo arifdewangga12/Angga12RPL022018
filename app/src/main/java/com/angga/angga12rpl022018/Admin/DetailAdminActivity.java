@@ -1,28 +1,53 @@
-package com.angga.angga12rpl022018;
+package com.angga.angga12rpl022018.Admin;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.angga.angga12rpl022018.Admin.DetailAdminActivity;
+import com.androidnetworking.AndroidNetworking;
+import com.androidnetworking.common.Priority;
+import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.JSONArrayRequestListener;
+import com.angga.angga12rpl022018.Adapter.AdminUserAdapter;
+import com.angga.angga12rpl022018.Helper.AppHelper;
 import com.angga.angga12rpl022018.Helper.config;
+import com.angga.angga12rpl022018.Model.UserAdminModel;
+import com.angga.angga12rpl022018.R;
+import com.angga.angga12rpl022018.initial;
 
-public class MainActivity extends AppCompatActivity {
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+
+public class DetailAdminActivity extends AppCompatActivity {
     ImageView ivBack;
     private Button btnlogout;
     private TextView tvUsername,tvEmail,tvNoTlp,tvNoKtp,tvAlamat,tvRoleUser;
 
+    private SwipeRefreshLayout swipeRefresh;
+    private ArrayList<UserAdminModel> mList = new ArrayList<>();
+    private AdminUserAdapter mAdapter;
+    private RecyclerView rv;
+    private UserAdminModel Amodel;
 
+    private String mLoginToken = "";
+    private String mUserId = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_detail_admin);
 
         btnlogout = findViewById(R.id.btnlogout);
         btnlogout.setOnClickListener(new View.OnClickListener() {
@@ -49,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
     private void logout() {
-        new AlertDialog.Builder(MainActivity.this)
+        new AlertDialog.Builder(DetailAdminActivity.this)
                 .setTitle("Logout")
                 .setMessage("Anda yakin akan logout ?")
                 .setNegativeButton("Tidak", null)
@@ -59,9 +84,11 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     public void onClick(DialogInterface arg0, int arg1) {
-                        config.forceLogout(MainActivity.this);
+                        config.forceLogout(DetailAdminActivity.this);
                     }
                 }).create().show();
     }
+
+
 
 }

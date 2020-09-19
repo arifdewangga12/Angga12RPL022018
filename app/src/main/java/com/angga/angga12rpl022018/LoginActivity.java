@@ -2,7 +2,9 @@ package com.angga.angga12rpl022018;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -28,6 +30,10 @@ public class LoginActivity extends AppCompatActivity {
     private boolean isFormFilled = false;
     private Button btnLogin;
     private String roleuser;
+    private String gmail;
+    private String username;
+    private String id;
+    private SharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,8 +86,18 @@ public class LoginActivity extends AppCompatActivity {
                                         for (int i = 0; i <loginArray.length(); i++) {
                                             final JSONObject aLogin = loginArray.optJSONObject(i);
                                             roleuser = aLogin.optString("roleuser");
+                                            gmail = aLogin.optString("email");
+                                            username = aLogin.optString("username");
+                                            id = aLogin.optString("id");
                                         }
                                         Log.d("AGG", "respon : " + roleuser);
+                                        preferences = getSharedPreferences(config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+                                        preferences.edit()
+                                                .putString(config.LOGIN_ID_SHARED_PREF, id)
+                                                .putString(config.LOGIN_NAME_SHARED_PREF, username)
+                                                .putString(config.LOGIN_GROUP_ID_SHARED_PREF, roleuser)
+                                                .putString(config.LOGIN_EMAIL_SHARED_PREF, gmail)
+                                                .apply();
                                         if (roleuser.equalsIgnoreCase("admin")) {
                                             Intent intent = new Intent(LoginActivity.this, AdminActivity.class);
                                             startActivity(intent);

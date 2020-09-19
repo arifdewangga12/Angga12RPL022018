@@ -14,7 +14,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Admin.TambahUserActivity"></activity>
+        <activity android:name=".UserProfileActivity"></activity>
+        <activity android:name=".Admin.DetailAdminActivity" />
+        <activity android:name=".Admin.DetailUserActivity" />
+        <activity android:name=".Admin.TambahUserActivity" />
         <activity android:name=".Admin.list_data_customerActivity" />
         <activity android:name=".Admin.list_data_sepedaActivity" />
         <activity android:name=".AdminActivity" />

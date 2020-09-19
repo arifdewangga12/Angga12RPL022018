@@ -10,10 +10,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.angga.angga12rpl022018.Admin.DetailAdminActivity;
 import com.angga.angga12rpl022018.Helper.config;
 
-public class MainActivity extends AppCompatActivity {
+public class UserProfileActivity extends AppCompatActivity {
+
     ImageView ivBack;
     private Button btnlogout;
     private TextView tvUsername,tvEmail,tvNoTlp,tvNoKtp,tvAlamat,tvRoleUser;
@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_user_profile);
 
         btnlogout = findViewById(R.id.btnlogout);
         btnlogout.setOnClickListener(new View.OnClickListener() {
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
     private void logout() {
-        new AlertDialog.Builder(MainActivity.this)
+        new AlertDialog.Builder(UserProfileActivity.this)
                 .setTitle("Logout")
                 .setMessage("Anda yakin akan logout ?")
                 .setNegativeButton("Tidak", null)
@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     public void onClick(DialogInterface arg0, int arg1) {
-                        config.forceLogout(MainActivity.this);
+                        config.forceLogout(UserProfileActivity.this);
                     }
                 }).create().show();
     }

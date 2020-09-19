@@ -158,13 +158,11 @@ public class AdminUserAdapter extends RecyclerView.Adapter<AdminUserAdapter.Item
             });
             if (!mProgressDialog.isShowing()) mProgressDialog.show();
 
-            Log.d("A", "act:delete_konsumen\n" +
+            Log.d("A", "act:deleteuser\n" +
                     "loginToken:" + mLoginToken + "\n" +
                     "uId:" + id);
 
-            AndroidNetworking.post(config.BASE_URL_API + "delete.php")
-//                    .addBodyParameter("act", "delete_konsumen")
-//                    .addBodyParameter("loginToken", mLoginToken)
+            AndroidNetworking.post(config.BASE_URL + "deleteuser.php")
                     .addBodyParameter("id", id)
                     .setPriority(Priority.HIGH)
                     .build()
@@ -174,10 +172,9 @@ public class AdminUserAdapter extends RecyclerView.Adapter<AdminUserAdapter.Item
                             mBusy = false;
                             if (mProgressDialog != null) mProgressDialog.dismiss();
 
-                            String message = jsonResponse.optString(config.RESPONSE_MESSAGE_FIELD);
-                            String status = jsonResponse.optString(config.RESPONSE_STATUS_FIELD);
+                            String message = jsonResponse.optString("message");
 
-                            if (status != null && status.equalsIgnoreCase(config.RESPONSE_STATUS_VALUE_SUCCESS)) {
+                            if (message.equalsIgnoreCase("success")) {
                                 mAdminActivity.getUserList();
                             } else {
                                 Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
