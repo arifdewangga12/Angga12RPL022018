@@ -3,7 +3,9 @@ package com.angga.angga12rpl022018;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -17,13 +19,29 @@ public class UserProfileActivity extends AppCompatActivity {
     ImageView ivBack;
     private Button btnlogout;
     private TextView tvUsername,tvEmail,tvNoTlp,tvNoKtp,tvAlamat,tvRoleUser;
+    private String mEmail, mUsername, mKtp, mPhone, mAlamat, mStatus;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
+//MENDAFTARKAN SHAREDPREFENCES
+        binding();
+        SharedPreferences sp = getSharedPreferences(config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        mEmail = sp.getString(config.LOGIN_EMAIL_SHARED_PREF,"");
+        mUsername = sp.getString(config.LOGIN_NAME_SHARED_PREF,"");
+        mKtp = sp.getString(config.LOGIN_KTP,"");
+        mPhone = sp.getString(config.LOGIN_PHONE_SHARED_PREF,"");
+        mAlamat = sp.getString(config.LOGIN_ADDRESS_SHARED_PREF,"");
+        mStatus = sp.getString(config.LOGIN_GROUP_ID_SHARED_PREF,"");
 
+        tvEmail.setText(mEmail);
+        tvUsername.setText(mUsername);
+        tvNoKtp.setText(mKtp);
+        tvNoTlp.setText(mPhone);
+        tvAlamat.setText(mAlamat);
+///TOMBOL BACK DAN LOGOUT
         btnlogout = findViewById(R.id.btnlogout);
         btnlogout.setOnClickListener(new View.OnClickListener() {
             private void doNothing() {
@@ -63,5 +81,10 @@ public class UserProfileActivity extends AppCompatActivity {
                     }
                 }).create().show();
     }
-
-}
+    private void binding() {
+        tvEmail = findViewById(R.id.tvEmail);
+        tvUsername = findViewById(R.id.tvUsername);
+        tvNoKtp = findViewById(R.id.tvNoKtp);
+        tvNoTlp = findViewById(R.id.tvNoTlp);
+        tvAlamat = findViewById(R.id.tvAlamat);
+}}

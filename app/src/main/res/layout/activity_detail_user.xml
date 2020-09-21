@@ -58,7 +58,7 @@
     </RelativeLayout>
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="70dp"
         android:layout_marginTop="4dp"
         android:layout_marginBottom="5dp"
         android:src="@drawable/ic_account">
@@ -286,7 +286,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/btnlogout"
+        android:id="@+id/btnedituser"
         android:layout_width="280dp"
         android:layout_height="50dp"
         android:layout_gravity="center"
@@ -294,7 +294,7 @@
         android:layout_marginTop="15dp"
         android:layout_marginEnd="20dp"
         android:background="#F44336"
-        android:text="Logout"
+        android:text="EDIT"
         android:textAllCaps="false"
         android:textColor="#fff"
         android:textStyle="bold" />

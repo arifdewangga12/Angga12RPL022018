@@ -57,7 +57,7 @@
     </RelativeLayout>
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="70dp"
         android:layout_marginTop="4dp"
         android:layout_marginBottom="5dp"
         android:src="@drawable/ic_account">
@@ -293,6 +293,7 @@
         android:layout_marginTop="15dp"
         android:layout_marginEnd="20dp"
         android:background="#FF1100"
+        android:shadowColor="@color/cardview_shadow_end_color"
         android:text="Logout"
         android:textAllCaps="false"
         android:textColor="#fff"

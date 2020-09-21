@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,8 +22,10 @@ import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
+import com.angga.angga12rpl022018.Admin.DetailUserActivity;
 import com.angga.angga12rpl022018.Admin.list_data_customerActivity;
 import com.angga.angga12rpl022018.AdminActivity;
+import com.angga.angga12rpl022018.Helper.AppHelper;
 import com.angga.angga12rpl022018.Helper.config;
 import com.angga.angga12rpl022018.Model.UserAdminModel;
 import com.angga.angga12rpl022018.R;
@@ -39,6 +42,7 @@ public class AdminUserAdapter extends RecyclerView.Adapter<AdminUserAdapter.Item
     private boolean mBusy = false;
     private ProgressDialog mProgressDialog;
     private list_data_customerActivity mAdminActivity;
+    private TextView tvUsername;
 
     public AdminUserAdapter(Context context, List<UserAdminModel> mList, Activity AdminUserActivity) {
 
@@ -82,6 +86,7 @@ public class AdminUserAdapter extends RecyclerView.Adapter<AdminUserAdapter.Item
         private TextView tv_username, tv_email, tv_RoleUser;
         private ImageView divDelete;
 
+
         public ItemViewHolder(@NonNull View itemView) {
             super(itemView);
             divDelete = itemView.findViewById(R.id.ivDelete);
@@ -95,6 +100,13 @@ public class AdminUserAdapter extends RecyclerView.Adapter<AdminUserAdapter.Item
             tv_email.setText(Amodel.getEmail());
             tv_RoleUser.setText(Amodel.getRoleUser());
 
+//            tv_username.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Intent i = new Intent(context,DetailUserActivity.class);
+//                    AppHelper.goToUserAdminDetail(i);
+//                }
+//            });
             divDelete.setOnClickListener(new View.OnClickListener() {
                 private void doNothing() {
 

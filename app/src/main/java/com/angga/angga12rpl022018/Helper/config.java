@@ -50,6 +50,7 @@ public class config {
     public static final String LOGIN_TOKEN_SHARED_PREF = "TOKEN";
     public static final String LOGIN_EMAIL_SHARED_PREF = "EMAIL";
     public static final String LOGIN_PHONE_SHARED_PREF = "PHONE";
+    public static final String LOGIN_KTP= "KTP";
     public static final String LOGIN_GROUP_NAME_SHARED_PREF = "GROUP";
     public static final String LOGIN_GROUP_ID_SHARED_PREF = "GROUP_ID";
     public static final String LOGIN_STATUS_SHARED_PREF = "loggedin";

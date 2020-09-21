@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -43,21 +45,12 @@ public class DetailUserActivity extends AppCompatActivity {
 
     private String mLoginToken = "";
     private String mUserId = "";
+    private String mEmail, mUsername, mKtp, mPhone, mAlamat, mStatus;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_user);
 
-        btnlogout = findViewById(R.id.btnlogout);
-        btnlogout.setOnClickListener(new View.OnClickListener() {
-            private void doNothing() {
-
-            }
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
 
         ivBack = findViewById(R.id.ivBack);
             ivBack.setOnClickListener(new View.OnClickListener() {
@@ -71,66 +64,30 @@ public class DetailUserActivity extends AppCompatActivity {
                 }
             });
 
-        }
-    private void logout() {
-        new AlertDialog.Builder(DetailUserActivity.this)
-                .setTitle("Logout")
-                .setMessage("Anda yakin akan logout ?")
-                .setNegativeButton("Tidak", null)
-                .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
-                    private void doNothing() {
+        binding();
+        SharedPreferences sp = getSharedPreferences(config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        mEmail = sp.getString(config.LOGIN_EMAIL_SHARED_PREF,"");
+        mUsername = sp.getString(config.LOGIN_NAME_SHARED_PREF,"");
+        mKtp = sp.getString(config.LOGIN_KTP,"");
+        mPhone = sp.getString(config.LOGIN_PHONE_SHARED_PREF,"");
+        mAlamat = sp.getString(config.LOGIN_ADDRESS_SHARED_PREF,"");
+        mStatus = sp.getString(config.LOGIN_GROUP_ID_SHARED_PREF,"");
+        tvEmail.setText(mEmail);
+        tvUsername.setText(mUsername);
+        tvNoKtp.setText(mKtp);
+        tvNoTlp.setText(mPhone);
+        tvAlamat.setText(mAlamat);
+        tvRoleUser.setText(mStatus);
 
-                    }
 
-                    public void onClick(DialogInterface arg0, int arg1) {
-                        config.forceLogout(DetailUserActivity.this);
-                    }
-                }).create().show();
     }
-//    public void getUserList() {
-//        swipeRefresh.setRefreshing(true);
-//        AndroidNetworking.get(config.BASE_URL + "getdatauser.php")
-//                .setPriority(Priority.LOW)
-//                .setOkHttpClient(((initial) getApplication()).getOkHttpClient())
-//                .build()
-//                .getAsJSONArray(new JSONArrayRequestListener() {
-//
-//                    @Override
-//                    public void onResponse(JSONArray response) {
-//                        swipeRefresh.setRefreshing(false);
-//                        if (mAdapter != null) {
-//                            mAdapter.clearData();
-//                            mAdapter.notifyDataSetChanged();
-//                        }
-//                        if (mList != null) mList.clear();
-//                        Log.d("RBA", "res" + response);
-//                        try {
-//                            Log.i("AB", "respo: "+response);
-//                            //Loop the Array
-//                            for(int i=0;i < response.length();i++) {
-//                                JSONObject data = response.getJSONObject(i);
-//                                Log.e("ADF", "ponse: "+data );
-//                                UserAdminModel item = AppHelper.mapUserAdminModel(data);
-//                                mList.add(item);
-//                            }
-//                            mAdapter = new AdminUserAdapter(DetailUserActivity.this, mList, DetailUserActivity.this);
-//                            rv.setAdapter(mAdapter);
-//                        } catch(JSONException e) {
-//                            Log.e("log_tag", "Error parsing data "+e.toString());
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onError(ANError anError) {
-//                        swipeRefresh.setRefreshing(false);
-//                        Toast.makeText(DetailUserActivity.this, config.TOAST_AN_EROR, Toast.LENGTH_SHORT).show();
-//                        Log.d("A", "onError1: " + anError.getErrorBody());
-//                        Log.d("A", "onError: " + anError.getLocalizedMessage());
-//                        Log.d("A", "onError: " + anError.getErrorDetail());
-//                        Log.d("A", "onError: " + anError.getResponse());
-//                        Log.d("A", "onError: " + anError.getErrorCode());
-//                    }
-//                });
-//
-//    }
+
+    private void binding() {
+        tvEmail = findViewById(R.id.tvEmail);
+        tvUsername = findViewById(R.id.tvUsername);
+        tvNoKtp = findViewById(R.id.tvNoKtp);
+        tvNoTlp = findViewById(R.id.tvNoTlp);
+        tvAlamat = findViewById(R.id.tvAlamat);
+        tvRoleUser = findViewById(R.id.tvRoleUser);
     }
+}

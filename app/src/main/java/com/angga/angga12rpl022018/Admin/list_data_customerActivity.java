@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.androidnetworking.AndroidNetworking;
@@ -20,9 +21,11 @@ import com.androidnetworking.interfaces.JSONArrayRequestListener;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.angga.angga12rpl022018.Adapter.AdminUserAdapter;
 import com.angga.angga12rpl022018.Helper.AppHelper;
+import com.angga.angga12rpl022018.LoginActivity;
 import com.angga.angga12rpl022018.Model.UserAdminModel;
 import com.angga.angga12rpl022018.R;
 import com.angga.angga12rpl022018.Helper.config;
+import com.angga.angga12rpl022018.RegisterActivity;
 import com.angga.angga12rpl022018.initial;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -46,17 +49,12 @@ public class list_data_customerActivity extends AppCompatActivity implements Swi
     private String mLoginToken = "";
     private String mUserId = "";
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        SharedPreferences sp = getSharedPreferences(config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
-//        mLoginToken = sp.getString(config.LOGIN_TOKEN_SHARED_PREF,"");
-//        mUserId = sp.getString(config.LOGIN_ID_SHARED_PREF, "");
-//
-//        if(mLoginToken.equalsIgnoreCase("") || mUserId.equalsIgnoreCase("")) {
-//            finish();
-//            config.forceLogout(list_data_customerActivity.this);
-//        }
+
 
         setContentView(R.layout.activity_customer_admin);
         binding();
@@ -80,6 +78,8 @@ public class list_data_customerActivity extends AppCompatActivity implements Swi
                 startActivity(i);
             }
         });
+
+
         LinearLayoutManager manager = new LinearLayoutManager(this);
         rv.setLayoutManager(manager);
         rv.setHasFixedSize(true);

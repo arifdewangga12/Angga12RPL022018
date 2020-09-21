@@ -29,10 +29,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText txtemailLog, txtpasswordLog;
     private boolean isFormFilled = false;
     private Button btnLogin;
-    private String roleuser;
-    private String gmail;
-    private String username;
-    private String id;
+    private String roleuser, id,gmail,username,noktp,notlp,alamat;
     private SharedPreferences preferences;
 
     @Override
@@ -89,6 +86,9 @@ public class LoginActivity extends AppCompatActivity {
                                             gmail = aLogin.optString("email");
                                             username = aLogin.optString("username");
                                             id = aLogin.optString("id");
+                                            noktp = aLogin.optString("noktp");
+                                            notlp = aLogin.optString("notlp");
+                                            alamat = aLogin.optString("alamat");
                                         }
                                         Log.d("AGG", "respon : " + roleuser);
                                         preferences = getSharedPreferences(config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
@@ -97,6 +97,9 @@ public class LoginActivity extends AppCompatActivity {
                                                 .putString(config.LOGIN_NAME_SHARED_PREF, username)
                                                 .putString(config.LOGIN_GROUP_ID_SHARED_PREF, roleuser)
                                                 .putString(config.LOGIN_EMAIL_SHARED_PREF, gmail)
+                                                .putString(config.LOGIN_KTP,noktp)
+                                                .putString(config.LOGIN_PHONE_SHARED_PREF,notlp)
+                                                .putString(config.LOGIN_ADDRESS_SHARED_PREF,alamat)
                                                 .apply();
                                         if (roleuser.equalsIgnoreCase("admin")) {
                                             Intent intent = new Intent(LoginActivity.this, AdminActivity.class);

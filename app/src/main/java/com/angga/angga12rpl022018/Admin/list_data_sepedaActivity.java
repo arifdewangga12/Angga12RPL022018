@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,7 +31,7 @@ import java.util.HashMap;
 
 public class list_data_sepedaActivity extends AppCompatActivity {
 
-    private ImageView gambarsepeda;
+    private ImageView gambarsepeda, ivBack;
     private TextView tvNamaSepeda,tvHargaSewa;
 
     private RequestQueue requestQueue;
@@ -42,7 +43,19 @@ public class list_data_sepedaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_data_sepeda);
 
-        String url = "http://192.168.6.229/rentalsepeda/getdata.php"; //sesuaikan dengan ip pc anda
+        ivBack = findViewById(R.id.ivBack);
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            private void doNothing() {
+
+            }
+
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+            String url = "http://192.168.6.229/rentalsepeda/getdata.php";
         gambarsepeda = (ImageView)findViewById(R.id.gambarsepeda);
         tvNamaSepeda = (TextView)findViewById(R.id.tvNamaSepeda);
         tvHargaSewa = (TextView)findViewById(R.id.tvHargaSewa);

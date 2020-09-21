@@ -180,7 +180,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:paddingLeft="7dp"
-                        android:text="customer"
+                        android:text="example"
                         android:textColor="#000"
                         android:textSize="12sp"
                         android:textStyle="bold" />

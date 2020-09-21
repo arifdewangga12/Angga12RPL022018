@@ -34,7 +34,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="DETAIL USER"
+                android:text="PROFILE USER"
                 android:textStyle="bold"
                 android:textColor="#ffff"
                 android:textSize="11sp"
@@ -58,7 +58,7 @@
     </RelativeLayout>
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="70dp"
         android:layout_marginTop="4dp"
         android:layout_marginBottom="5dp"
         android:src="@drawable/ic_account">
