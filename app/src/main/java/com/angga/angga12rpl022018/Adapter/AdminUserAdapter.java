@@ -100,13 +100,13 @@ public class AdminUserAdapter extends RecyclerView.Adapter<AdminUserAdapter.Item
             tv_email.setText(Amodel.getEmail());
             tv_RoleUser.setText(Amodel.getRoleUser());
 
-//            tv_username.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    Intent i = new Intent(context,DetailUserActivity.class);
-//                    AppHelper.goToUserAdminDetail(i);
-//                }
-//            });
+            tv_username.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(context,DetailUserActivity.class);
+                    AppHelper.goToUserAdminDetail(context,Amodel);
+                }
+            });
             divDelete.setOnClickListener(new View.OnClickListener() {
                 private void doNothing() {
 

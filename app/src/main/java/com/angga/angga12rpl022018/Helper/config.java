@@ -29,7 +29,7 @@ import java.util.Random;
 public class config {
     //public static final String BASE_URL = " http://98102f27.ngrok.io/gma5/";
     //public static final String BASE_URL = "http://192.168.43.107/gma5/";
-    public static final String BASE_URL = "http://192.168.6.229/rentalsepeda/";
+    public static final String BASE_URL = "http://192.168.6.134/rentalsepeda/";
     public static final String TOAST_AN_ERROR = "ERROR GA ADA USER :)";
 
     private static final String API = "api/";

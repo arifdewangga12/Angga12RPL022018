@@ -41,16 +41,6 @@
                 android:textSize="11sp"
               />
         </LinearLayout>
-
-        <!--        <ImageView-->
-        <!--            android:id="@+id/ivAddUser"-->
-        <!--            android:layout_width="@dimen/_20ssp"-->
-        <!--            android:layout_height="@dimen/_20ssp"-->
-        <!--            android:layout_alignParentRight="true"-->
-        <!--            android:layout_marginRight="@dimen/_10sdp"-->
-        <!--            android:src="@drawable/ic_add_black_24dp"-->
-        <!--            android:tint="@color/colorPrimary" />-->
-
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"

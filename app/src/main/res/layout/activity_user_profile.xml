@@ -89,7 +89,7 @@
 
         <TextView
             android:id="@+id/tvEmail"
-            android:layout_width="wrap_content"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:paddingLeft="7dp"
@@ -124,7 +124,7 @@
 
         <TextView
             android:id="@+id/tvUsername"
-            android:layout_width="wrap_content"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:paddingLeft="7dp"
@@ -169,7 +169,7 @@
 
         <TextView
             android:id="@+id/tvNoKtp"
-            android:layout_width="wrap_content"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:paddingLeft="7dp"
@@ -204,7 +204,7 @@
 
         <TextView
             android:id="@+id/tvNoTlp"
-            android:layout_width="wrap_content"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:paddingLeft="7dp"
@@ -239,7 +239,7 @@
 
         <TextView
             android:id="@+id/tvAlamat"
-            android:layout_width="wrap_content"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:paddingLeft="7dp"

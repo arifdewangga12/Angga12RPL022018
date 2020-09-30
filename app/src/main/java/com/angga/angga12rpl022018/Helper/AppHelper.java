@@ -1,8 +1,10 @@
 package com.angga.angga12rpl022018.Helper;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
+import com.angga.angga12rpl022018.Admin.DetailUserActivity;
 import com.angga.angga12rpl022018.Model.UserAdminModel;
 
 import org.json.JSONObject;
@@ -36,9 +38,9 @@ public class AppHelper {
 
 
 
-//        Intent i = new Intent(context, CustomerDetailActivity.class);
-//        i.putExtra("extra_customer", rowData);
-//        context.startActivity(i);
+        Intent i = new Intent(context, DetailUserActivity.class);
+        i.putExtra("extra_user", rowData);
+        context.startActivity(i);
     }
 
 }
