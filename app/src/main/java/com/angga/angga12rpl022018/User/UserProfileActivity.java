@@ -1,4 +1,4 @@
-package com.angga.angga12rpl022018;
+package com.angga.angga12rpl022018.User;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.angga.angga12rpl022018.Helper.config;
+import com.angga.angga12rpl022018.R;
 
 public class UserProfileActivity extends AppCompatActivity {
 

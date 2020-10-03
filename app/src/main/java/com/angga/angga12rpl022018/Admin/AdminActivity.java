@@ -1,4 +1,4 @@
-package com.angga.angga12rpl022018;
+package com.angga.angga12rpl022018.Admin;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -8,10 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.angga.angga12rpl022018.Adapter.AdminUserAdapter;
-import com.angga.angga12rpl022018.Admin.DetailAdminActivity;
-import com.angga.angga12rpl022018.Admin.list_data_customerActivity;
-import com.angga.angga12rpl022018.Admin.list_data_sepedaActivity;
+import com.angga.angga12rpl022018.R;
 
 public class AdminActivity extends AppCompatActivity {
 

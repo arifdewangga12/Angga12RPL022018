@@ -6,11 +6,12 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
-import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.angga.angga12rpl022018.Admin.AdminActivity;
 import com.angga.angga12rpl022018.Helper.config;
+import com.angga.angga12rpl022018.User.DashboardActivity;
 
 public class SplashActivity extends AppCompatActivity {
 

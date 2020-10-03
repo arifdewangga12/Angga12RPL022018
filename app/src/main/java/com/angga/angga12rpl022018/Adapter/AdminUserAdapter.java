@@ -24,7 +24,6 @@ import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.angga.angga12rpl022018.Admin.DetailUserActivity;
 import com.angga.angga12rpl022018.Admin.list_data_customerActivity;
-import com.angga.angga12rpl022018.AdminActivity;
 import com.angga.angga12rpl022018.Helper.AppHelper;
 import com.angga.angga12rpl022018.Helper.config;
 import com.angga.angga12rpl022018.Model.UserAdminModel;
@@ -32,7 +31,6 @@ import com.angga.angga12rpl022018.R;
 
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class AdminUserAdapter extends RecyclerView.Adapter<AdminUserAdapter.ItemViewHolder> {
