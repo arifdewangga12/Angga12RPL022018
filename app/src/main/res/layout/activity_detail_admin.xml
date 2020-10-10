@@ -286,13 +286,13 @@
 
     <Button
         android:id="@+id/btnlogout"
-        android:layout_width="280dp"
+        android:layout_width="250dp"
         android:layout_height="50dp"
         android:layout_gravity="center"
         android:layout_marginStart="20dp"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="20dp"
-        android:background="#FF1100"
+        android:background="@drawable/bg_logout"
         android:shadowColor="@color/cardview_shadow_end_color"
         android:text="Logout"
         android:textAllCaps="false"

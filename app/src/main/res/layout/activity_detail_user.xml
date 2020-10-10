@@ -251,13 +251,13 @@
     </LinearLayout>
     <Button
         android:id="@+id/btnedituser"
-        android:layout_width="280dp"
+        android:layout_width="250dp"
         android:layout_height="50dp"
         android:layout_gravity="center"
         android:layout_marginStart="20dp"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="20dp"
-        android:background="#F44336"
+        android:background="@drawable/bg_logout"
         android:text="EDIT"
         android:textAllCaps="false"
         android:textColor="#fff"
