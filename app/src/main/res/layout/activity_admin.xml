@@ -29,16 +29,17 @@
             app:layout_constraintTop_toBottomOf="@+id/imageView">
 
             <androidx.cardview.widget.CardView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_width="350dp"
+                android:layout_height="180dp"
                 android:layout_margin="10dp"
                 android:id="@+id/daftarsepeda"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:backgroundTint="@color/colorPrimary">
 
                 <RelativeLayout
                     android:layout_width="318dp"
                     android:layout_height="match_parent"
-                    android:background="@color/colorPrimary">
+                    android:background="@drawable/ic_background_cardview">
 
                     <ImageView
                         android:layout_width="45dp"
@@ -65,7 +66,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FFF">
+        android:background="#FFF"
+        android:layout_marginTop="3sp">
 
 
         <LinearLayout

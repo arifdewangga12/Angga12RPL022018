@@ -8,6 +8,7 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import com.angga.angga12rpl022018.Admin.list_data_sepedaActivity;
 import com.angga.angga12rpl022018.R;
 
 public class DashboardActivity extends AppCompatActivity {
@@ -29,7 +30,7 @@ public class DashboardActivity extends AppCompatActivity {
         daftarsepeda.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(DashboardActivity.this, list_sepedaActivity.class);
+                Intent i = new Intent(DashboardActivity.this, list_data_sepedaActivity.class);
                 startActivity(i);
             }
         });

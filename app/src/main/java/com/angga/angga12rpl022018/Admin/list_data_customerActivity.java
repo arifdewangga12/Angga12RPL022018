@@ -139,16 +139,6 @@ public class list_data_customerActivity extends AppCompatActivity implements Swi
                                 Log.e("ADF", "ponse: "+data );
                                 UserAdminModel item = AppHelper.mapUserAdminModel(data);
                                 mList.add(item);
-//                                mList.add(new UserAdminModel(
-//                                        data.getInt("id"),
-//                                        data.getString("email"),
-//                                        data.getString("username"),
-//                                        data.getString("roleuser"),
-//                                        data.getString("noktp"),
-//                                        data.getString("notlp"),
-//                                        data.getString("alamat"),
-//                                        data.getString("password")
-//                                ));
                             }
                             mAdapter = new AdminUserAdapter (list_data_customerActivity.this, mList, list_data_customerActivity.this);
                             rv.setAdapter(mAdapter);
