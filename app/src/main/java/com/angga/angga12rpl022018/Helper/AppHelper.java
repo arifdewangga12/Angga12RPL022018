@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.angga.angga12rpl022018.Admin.DetailSepedaAdminActivity;
 import com.angga.angga12rpl022018.Admin.DetailUserActivity;
 import com.angga.angga12rpl022018.Model.SepedaModel;
 import com.angga.angga12rpl022018.Model.UserAdminModel;
@@ -58,19 +59,20 @@ public class AppHelper {
     }
 
 
-//    public static void goToDataAdminDetail(Context context, UserAdminModel rowData) {
-//        Bundle bundle = new Bundle();
-//
-//        bundle.putString("namasepeda", String.valueOf(rowData.getId()));
-//        bundle.putString("kodesepeda", rowData.getRoleUser().toUpperCase());
-//        bundle.putString("jenissepeda", rowData.getEmail().toUpperCase());
-//        bundle.putString("merksepeda", rowData.getUsername().toUpperCase());
-//        bundle.putString("warnasepeda", rowData.getNoKtp());
-//        bundle.putString("hargasewa", rowData.getNoTlp());
-//
-//
-//        Intent i = new Intent(context, DetailDataActivity.class);
-//        i.putExtra("extra_data", rowData);
-//        context.startActivity(i);
-//    }
+    public static void goToDataAdminDetail(Context context, SepedaModel rowData) {
+        Bundle bundle = new Bundle();
+
+        bundle.putString("id", String.valueOf(rowData.getId()));
+        bundle.putString("namasepeda", rowData.getNamaSepeda().toUpperCase());
+        bundle.putString("kodesepeda", rowData.getKodeSepeda().toUpperCase());
+        bundle.putString("jenissepeda", rowData.getJenisSepeda().toUpperCase());
+        bundle.putString("merksepeda", rowData.getMerkSepeda().toUpperCase());
+        bundle.putString("warnasepeda", rowData.getWarnasepeda().toUpperCase());
+        bundle.putString("hargasewa", rowData.getHargaSewa().toUpperCase());
+
+
+        Intent i = new Intent(context, DetailSepedaAdminActivity.class);
+        i.putExtra("extra_data", rowData);
+        context.startActivity(i);
+    }
 }

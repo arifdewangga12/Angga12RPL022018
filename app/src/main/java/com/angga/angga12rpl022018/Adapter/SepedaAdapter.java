@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +23,7 @@ import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
+import com.angga.angga12rpl022018.Admin.DetailSepedaAdminActivity;
 import com.angga.angga12rpl022018.Admin.DetailUserActivity;
 import com.angga.angga12rpl022018.Admin.list_data_customerActivity;
 import com.angga.angga12rpl022018.Admin.list_data_sepedaActivity;
@@ -85,121 +87,33 @@ public class SepedaAdapter extends RecyclerView.Adapter<SepedaAdapter.ItemViewHo
     public class ItemViewHolder extends RecyclerView.ViewHolder {
         private TextView tvNamasepeda, tvJenissepeda, tvHargaSewa;
         private ImageView ivDelete;
+        private LinearLayout card_sepeda;
 
 
-        public ItemViewHolder(@NonNull View itemView) {
+        public ItemViewHolder(@NonNull final View itemView) {
             super(itemView);
             tvNamasepeda = itemView.findViewById(R.id.tvNamaSepeda);
             tvJenissepeda = itemView.findViewById(R.id.tvJenisSepeda);
             tvHargaSewa = itemView.findViewById(R.id.tvHargaSewa);
-            ivDelete = itemView.findViewById(R.id.ivDelete);
+            card_sepeda = itemView.findViewById(R.id.card_sepeda);
+
         }
 
         private void bind(final SepedaModel Amodel) {
             tvNamasepeda.setText(Amodel.getNamaSepeda());
             tvJenissepeda.setText(Amodel.getJenisSepeda());
             tvHargaSewa.setText(Amodel.getHargaSewa());
-            ivDelete.setOnClickListener(new View.OnClickListener() {
-                private void doNothing() {
-
-                }
-
+            card_sepeda.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View view) {
-                    if (mBusy) {
-                        Toast.makeText(context, "Harap tunggu", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-
-                    final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-                    alertDialogBuilder.setMessage("Hapus data sepeda ?");
-                    alertDialogBuilder.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
-                        private void doNothing() {
-
-                        }
-
-                        public void onClick(DialogInterface arg0, int arg1) {
-                            deleteData(String.valueOf(Amodel.getId()));
-                        }
-                    });
-                    alertDialogBuilder.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
-                        private void doNothing() {
-
-                        }
-
-                        @Override
-                        public void onClick(DialogInterface arg0, int arg1) {
-                            arg0.dismiss();
-                        }
-                    });
-
-                    //Showing the alert dialog
-                    AlertDialog alertDialog = alertDialogBuilder.create();
-                    alertDialog.show();
+                public void onClick(View v) {
+                    Intent i = new Intent(context, DetailSepedaAdminActivity.class);
+                    AppHelper.goToDataAdminDetail(context,Amodel);
                 }
             });
-        }
-
-        private void deleteData(String id) {
-            if (mBusy) {
-                Toast.makeText(context, "Harap tunggu", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            mProgressDialog = new ProgressDialog(context);
-            mProgressDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            mProgressDialog.setMessage("Proses ...");
-            mProgressDialog.setCancelable(true);
-            mProgressDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Batal", new DialogInterface.OnClickListener() {
-                private void doNothing() {
-
-                }
-
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            });
-            if (!mProgressDialog.isShowing()) mProgressDialog.show();
-
-            Log.d("A", "act:deletedata\n" +
-                    "loginToken:" + mLoginToken + "\n" +
-                    "uId:" + id);
-
-            AndroidNetworking.post(config.BASE_URL + "deletedata.php")
-                    .addBodyParameter("id", id)
-                    .setPriority(Priority.HIGH)
-                    .build()
-                    .getAsJSONObject(new JSONObjectRequestListener() {
-                        @Override
-                        public void onResponse(JSONObject jsonResponse) {
-                            mBusy = false;
-                            if (mProgressDialog != null) mProgressDialog.dismiss();
-
-                            String message = jsonResponse.optString("message");
-
-                            if (message.equalsIgnoreCase("success")) {
-                                mAdminActivity.getUserList();
-                            } else {
-                                Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
-                            }
-                        }
-
-                        @Override
-                        public void onError(ANError anError) {
-                            mBusy = false;
-                            if (mProgressDialog != null) mProgressDialog.dismiss();
-
-                            Toast.makeText(context, config.TOAST_AN_EROR, Toast.LENGTH_SHORT).show();
-                            Log.d("A", "onError: " + anError.getErrorBody());
-                            Log.d("A", "onError: " + anError.getLocalizedMessage());
-                            Log.d("A", "onError: " + anError.getErrorDetail());
-                            Log.d("A", "onError: " + anError.getResponse());
-                            Log.d("A", "onError: " + anError.getErrorCode());
-                        }
-                    });
 
         }
+
+
     }
 
 }
