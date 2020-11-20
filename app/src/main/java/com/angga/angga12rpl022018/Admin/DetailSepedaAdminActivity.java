@@ -50,23 +50,12 @@ public class DetailSepedaAdminActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_sepeda_admin);
 
-        ivBack = findViewById(R.id.ivBack);
         btneditsepeda = findViewById(R.id.btneditsepeda);
         btneditsepeda.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(DetailSepedaAdminActivity.this,EditSepedaAdminActivity.class);
                 startActivity(i);
-            }
-        });
-        ivBack.setOnClickListener(new View.OnClickListener() {
-            private void doNothing() {
-
-            }
-
-            @Override
-            public void onClick(View v) {
-                finish();
             }
         });
 
@@ -100,6 +89,17 @@ public class DetailSepedaAdminActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(DetailSepedaAdminActivity.this,EditSepedaAdminActivity.class);
                 startActivity(i);
+            }
+        });
+        ivBack = findViewById(R.id.ivBack);
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            private void doNothing() {
+
+            }
+
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }

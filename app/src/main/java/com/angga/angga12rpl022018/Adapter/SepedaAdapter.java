@@ -86,7 +86,6 @@ public class SepedaAdapter extends RecyclerView.Adapter<SepedaAdapter.ItemViewHo
 
     public class ItemViewHolder extends RecyclerView.ViewHolder {
         private TextView tvNamasepeda, tvJenissepeda, tvHargaSewa;
-        private ImageView ivDelete;
         private LinearLayout card_sepeda;
 
 
