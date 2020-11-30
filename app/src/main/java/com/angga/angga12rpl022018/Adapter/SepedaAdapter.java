@@ -32,6 +32,7 @@ import com.angga.angga12rpl022018.Helper.config;
 import com.angga.angga12rpl022018.Model.SepedaModel;
 import com.angga.angga12rpl022018.Model.UserAdminModel;
 import com.angga.angga12rpl022018.R;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
 
@@ -87,6 +88,7 @@ public class SepedaAdapter extends RecyclerView.Adapter<SepedaAdapter.ItemViewHo
     public class ItemViewHolder extends RecyclerView.ViewHolder {
         private TextView tvNamasepeda, tvJenissepeda, tvHargaSewa;
         private LinearLayout card_sepeda;
+        private ImageView ivGambarSepeda;
 
 
         public ItemViewHolder(@NonNull final View itemView) {
@@ -95,6 +97,7 @@ public class SepedaAdapter extends RecyclerView.Adapter<SepedaAdapter.ItemViewHo
             tvJenissepeda = itemView.findViewById(R.id.tvJenisSepeda);
             tvHargaSewa = itemView.findViewById(R.id.tvHargaSewa);
             card_sepeda = itemView.findViewById(R.id.card_sepeda);
+            ivGambarSepeda = itemView.findViewById(R.id.ivGambarSepeda);
 
         }
 
@@ -102,6 +105,9 @@ public class SepedaAdapter extends RecyclerView.Adapter<SepedaAdapter.ItemViewHo
             tvNamasepeda.setText(Amodel.getNamaSepeda());
             tvJenissepeda.setText(Amodel.getJenisSepeda());
             tvHargaSewa.setText(Amodel.getHargaSewa());
+            Picasso.get()
+                    .load(config.BASE_URL+"img/"+Amodel.getGambarSepeda())
+                    .into(ivGambarSepeda);
             card_sepeda.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

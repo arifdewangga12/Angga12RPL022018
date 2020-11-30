@@ -3,7 +3,9 @@ package com.angga.angga12rpl022018.Admin;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -18,14 +20,25 @@ import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.angga.angga12rpl022018.Helper.config;
 import com.angga.angga12rpl022018.R;
 import com.angga.angga12rpl022018.initial;
+import com.vansuita.pickimage.bean.PickResult;
+import com.vansuita.pickimage.bundle.PickSetup;
+import com.vansuita.pickimage.dialog.PickImageDialog;
+import com.vansuita.pickimage.listeners.IPickResult;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 
-public class TambahDataActivity extends AppCompatActivity {
-    ImageView ivBack;
+import id.zelory.compressor.Compressor;
+
+public class TambahDataActivity extends AppCompatActivity implements IPickResult {
+    ImageView ivBack,imageV;
+    private Bitmap mSelectedImage;
+    private String mSelectedImagePath;
+    File mSelectedFileBanner;
     private EditText txtnamasepeda, txtkodesepeda, txtjenissepeda, txtmerksepeda, txtwarnasepeda, txthargasewa;
     private Button btntambahdata;
 
@@ -33,8 +46,16 @@ public class TambahDataActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tambah_data);
-binding();
+        binding();
         ivBack = findViewById(R.id.ivBack);
+        imageV = findViewById(R.id.imageView);
+        imageV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PickImageDialog.build(new PickSetup()).show(TambahDataActivity.this);
+                new PickSetup().setCameraButtonText("Gallery");
+            }
+        });
         ivBack.setOnClickListener(new View.OnClickListener() {
             private void doNothing() {
 
@@ -71,8 +92,9 @@ binding();
                     body.put("warnasepeda", warnasepeda);
                     body.put("hargasewa", hargasewa);
 
-                    AndroidNetworking.post(config.BASE_URL+"tambahdata.php")
-                            .addBodyParameter(body)
+                    AndroidNetworking.upload(config.BASE_URL+"tambahdata.php")
+                            .addMultipartFile("gambarsepeda",mSelectedFileBanner)
+                            .addMultipartParameter(body)
                             .setPriority(Priority.MEDIUM)
                             .setOkHttpClient(((initial) getApplication()).getOkHttpClient())
                             .build()
@@ -117,7 +139,6 @@ binding();
     }
 
 
-
     private void binding() {
         txtnamasepeda= findViewById(R.id.txtnamasepeda);
         txtkodesepeda= findViewById(R.id.txtkodesepeda);
@@ -126,5 +147,26 @@ binding();
         txtwarnasepeda  = findViewById(R.id.txtwarnasepeda);
         txthargasewa= findViewById(R.id.txthargasewa);
         btntambahdata = findViewById(R.id.btntambahdata);
+    }
+
+    @Override
+    public void onPickResult(PickResult r) {
+        if(r.getError() == null){
+            try {
+                File fileku = new Compressor(this)
+                        .setQuality(50)
+                        .setCompressFormat(Bitmap.CompressFormat.WEBP)
+                        .setDestinationDirectoryPath(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsolutePath())
+                        .compressToFile(new File(r.getPath()));
+                mSelectedImagePath = fileku.getAbsolutePath();
+                mSelectedFileBanner = new File(mSelectedImagePath);
+                mSelectedImage=r.getBitmap();
+                imageV.setImageBitmap(mSelectedImage);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }else{
+            Toast.makeText(TambahDataActivity.this, r.getError().getMessage(), Toast.LENGTH_SHORT).show();
+        }
     }
 }

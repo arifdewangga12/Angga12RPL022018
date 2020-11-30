@@ -59,6 +59,12 @@
 
     </RelativeLayout>
 
+    <ImageView
+        android:background="#000"
+        android:id="@+id/imageView"
+        android:layout_gravity="center"
+        android:layout_width="100dp"
+        android:layout_height="100dp"/>
     <EditText
         android:id="@+id/txtnamasepeda"
         android:layout_width="300dp"

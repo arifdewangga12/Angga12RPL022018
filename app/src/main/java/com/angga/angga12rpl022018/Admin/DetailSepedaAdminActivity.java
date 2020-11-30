@@ -70,9 +70,7 @@ public class DetailSepedaAdminActivity extends AppCompatActivity {
             tvMerkSepeda.setText(model.getMerkSepeda());
             tvWarnaSepeda.setText(model.getWarnasepeda());
             tvHargaSewa.setText(model.getHargaSewa());
-
         }
-
 
     }
 
