@@ -30,6 +30,14 @@
                 android:id="@+id/ivBack"
                 android:layout_marginLeft="10sp"/>
 
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -57,13 +65,14 @@
 
     </RelativeLayout>
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="6dp"
-        android:layout_marginBottom="7dp"
-        android:src="@drawable/ic_sepeda">
+        android:background="@drawable/ic_background_card"
+        android:id="@+id/ivSepeda"
+        android:layout_gravity="center"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"/>
 
-    </ImageView>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -71,6 +80,7 @@
         android:gravity="center"
         android:fontFamily="@font/lobster_two"
         android:textSize="12sp"
+        android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp">
 
         <TextView

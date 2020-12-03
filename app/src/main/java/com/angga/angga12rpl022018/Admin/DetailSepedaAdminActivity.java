@@ -25,13 +25,15 @@ import com.angga.angga12rpl022018.Model.SepedaModel;
 import com.angga.angga12rpl022018.Model.UserAdminModel;
 import com.angga.angga12rpl022018.R;
 import com.angga.angga12rpl022018.initial;
+import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
 
 import java.util.HashMap;
 
 public class DetailSepedaAdminActivity extends AppCompatActivity {
-    ImageView ivBack;
+    ImageView ivBack, ivGambarSepeda;
     private Button btneditsepeda;
     private TextView tvNamaSepeda,tvKodeSepeda,tvMerkSepeda,tvJenisSepeda,tvWarnaSepeda,tvHargaSewa;
 
@@ -43,13 +45,14 @@ public class DetailSepedaAdminActivity extends AppCompatActivity {
 
     private String mLoginToken = "";
     private String mUserId = "";
-    private String mNamaSepeda, mKodeSepeda, mJenisSepeda, mMerkSepeda, mWarnaSepeda,mHargaSewa;
+    private String mNamaSepeda, mKodeSepeda, mJenisSepeda, mMerkSepeda, mWarnaSepeda,mHargaSewa,GambarSepeda;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_sepeda_admin);
 
+        ivGambarSepeda = findViewById(R.id.ivSepeda);
         btneditsepeda = findViewById(R.id.btneditsepeda);
         btneditsepeda.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,6 +73,9 @@ public class DetailSepedaAdminActivity extends AppCompatActivity {
             tvMerkSepeda.setText(model.getMerkSepeda());
             tvWarnaSepeda.setText(model.getWarnasepeda());
             tvHargaSewa.setText(model.getHargaSewa());
+            Picasso.get()
+                    .load(config.BASE_URL+"img/"+ model.getGambarSepeda())
+                    .into(ivGambarSepeda);
         }
 
     }
